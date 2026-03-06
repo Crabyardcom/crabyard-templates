@@ -5,6 +5,7 @@ import { DashboardView } from "@/components/DashboardView";
 import { TitleBar } from "@/components/TitleBar";
 import { useAuth } from "@/hooks/useAuth";
 import { useSettings } from "@/hooks/useSettings";
+import { UpdateBanner } from "@/components/UpdateBanner";
 import { Loader2 } from "lucide-react";
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
       <div className="flex h-screen flex-col bg-background text-foreground">
         <TitleBar />
         <DashboardView />
+        <UpdateBanner />
       </div>
     </TooltipProvider>
   );
