@@ -1,0 +1,7 @@
+{
+  "markers": {},
+  "npm_dev_dependencies": {
+    "daisyui": "^5",
+    "lucide-react": "^0.577.0"
+  }
+}

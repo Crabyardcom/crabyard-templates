@@ -1,0 +1,10 @@
+{
+  "markers": {},
+  "npm_dev_dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "lucide-react": "^0.577.0",
+    "radix-ui": "^1.4.2",
+    "tw-animate-css": "^1.3.4",
+    "shadcn": "^2.5.0"
+  }
+}

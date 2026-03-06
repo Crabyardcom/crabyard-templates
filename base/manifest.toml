@@ -1,0 +1,53 @@
+# TauriKit Template Manifest
+# This file describes the scaffold and its modules.
+# It is used by the taurikit CLI generator — do not delete it.
+
+[template]
+version = "1.0.0"
+taurikit_version = "1.0.0"
+min_tauri = "2.0"
+min_rust = "1.80"
+min_bun = "1.1"
+
+[project]
+app_name = "{{APP_NAME}}"
+app_slug = "{{APP_SLUG}}"
+app_slug_snake = "{{APP_SLUG_SNAKE}}"
+app_bundle_id = "{{APP_BUNDLE_ID}}"
+app_version = "{{APP_VERSION}}"
+app_description = "{{APP_DESCRIPTION}}"
+app_author = "{{APP_AUTHOR}}"
+generated_at = "{{GENERATED_AT}}"
+
+[modules.auth]
+selected = "{{AUTH_MODULE}}"
+
+[modules.auth.options.github]
+label = "GitHub (Device Flow)"
+overlay = "auth/github"
+
+[modules.auth.options.google]
+label = "Google (Loopback PKCE)"
+overlay = "auth/google"
+
+[modules.auth.options.none]
+label = "No authentication"
+overlay = "auth/none"
+
+[modules.ui]
+selected = "{{UI_MODULE}}"
+
+[modules.ui.options.shadcn]
+label = "shadcn/ui"
+overlay = "ui/shadcn"
+
+[modules.ui.options.daisyui]
+label = "daisyUI"
+overlay = "ui/daisyui"
+
+[modules.package_manager]
+selected = "bun"
+
+[tokens]
+# APP_NAME, APP_SLUG, APP_SLUG_SNAKE, APP_BUNDLE_ID, APP_VERSION,
+# APP_DESCRIPTION, APP_AUTHOR, GENERATED_AT, TAURIKIT_VERSION

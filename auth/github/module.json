@@ -1,0 +1,22 @@
+{
+  "markers": {
+    "TAURIKIT:MOD_AUTH": "mod auth;",
+    "TAURIKIT:COMMANDS": "commands::auth::login,\n            commands::auth::poll_auth,\n            commands::auth::logout,\n            commands::auth::get_auth_status,\n            commands::auth::restore_auth,",
+    "TAURIKIT:MOD_AUTH_CMD": "pub mod auth;",
+    "TAURIKIT:MOD_AUTH_MODEL": "pub mod auth;",
+    "TAURIKIT:AUTH_ERRORS": "#[error(\"Auth provider error: {0}\")]\n    AuthProvider(String),\n\n    #[error(\"Token expired or revoked\")]\n    TokenExpired,\n\n    #[error(\"Auth denied by user\")]\n    AuthDenied,\n\n    #[error(\"Auth code expired, please try again\")]\n    AuthExpired,\n\n    #[error(\"Store error: {0}\")]\n    Store(String),",
+    "TAURIKIT:AUTH_STATE": "pub auth_token: Option<String>,\n    pub username: Option<String>,\n    pub avatar_url: Option<String>,\n    pub http_client: reqwest::Client,",
+    "TAURIKIT:AUTH_STATE_DEFAULTS": "auth_token: None,\n            username: None,\n            avatar_url: None,\n            http_client: reqwest::Client::builder()\n                .user_agent(\"{{APP_SLUG}}\")\n                .build()\n                .expect(\"failed to build http client\"),",
+    "TAURIKIT:AUTH_TYPES": "// Auth types — mirrors Rust models/auth.rs\nexport interface DeviceCodeResponse {\n  deviceCode: string;\n  userCode: string;\n  verificationUri: string;\n  expiresIn: number;\n  interval: number;\n}\n\nexport interface AuthStatus {\n  authenticated: boolean;\n  username: string | null;\n  avatarUrl: string | null;\n}",
+    "TAURIKIT:AUTH_IMPORTS": "import type { AuthStatus, DeviceCodeResponse } from \"./types\";",
+    "TAURIKIT:AUTH_COMMANDS": "// ─── Auth commands ─────────────────────────────────────────────────────────\n\nexport async function login(): Promise<DeviceCodeResponse> {\n  return invoke(\"login\");\n}\n\nexport async function pollAuth(\n  deviceCode: string,\n  interval: number\n): Promise<AuthStatus> {\n  return invoke(\"poll_auth\", { deviceCode, interval });\n}\n\nexport async function logout(): Promise<void> {\n  return invoke(\"logout\");\n}\n\nexport async function getAuthStatus(): Promise<AuthStatus> {\n  return invoke(\"get_auth_status\");\n}\n\nexport async function restoreAuth(): Promise<AuthStatus> {\n  return invoke(\"restore_auth\");\n}",
+    "TAURIKIT:STORE_AUTH_IMPORT": "import type { AuthStatus } from \"@/lib/types\";",
+    "TAURIKIT:STORE_AUTH_STATE": "auth: AuthStatus;\n  authLoading: boolean;\n",
+    "TAURIKIT:STORE_AUTH_SETTERS": "setAuth: (auth: AuthStatus) => void;\n  setAuthLoading: (loading: boolean) => void;",
+    "TAURIKIT:STORE_AUTH_DEFAULTS": "auth: { authenticated: false, username: null, avatarUrl: null },\n  authLoading: true,\n",
+    "TAURIKIT:STORE_AUTH_SETTER_IMPLS": "setAuth: (auth) => set({ auth }),\n  setAuthLoading: (authLoading) => set({ authLoading }),"
+  },
+  "npm_dev_dependencies": {
+    "lucide-react": "^0.577.0"
+  }
+}

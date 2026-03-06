@@ -1,0 +1,18 @@
+import * as React from "react";
+import { cn } from "@/lib/utils";
+
+function Input({
+  className,
+  type,
+  ...props
+}: React.InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <input
+      type={type}
+      className={cn("input input-bordered w-full", className)}
+      {...props}
+    />
+  );
+}
+
+export { Input };
