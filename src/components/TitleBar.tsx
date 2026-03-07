@@ -19,13 +19,10 @@ export function TitleBar() {
 
   return (
     <div
+      data-tauri-drag-region
       className="flex h-8 shrink-0 items-center bg-background/80 select-none"
-      onMouseDown={(e) => {
-        if ((e.target as HTMLElement).closest("[data-window-control]")) return;
-        appWindow.startDragging();
-      }}
       onDoubleClick={(e) => {
-        if ((e.target as HTMLElement).closest("[data-window-control]")) return;
+        if ((e.target as HTMLElement).closest("button")) return;
         handleToggleMaximize();
       }}
     >
@@ -34,21 +31,18 @@ export function TitleBar() {
       </span>
       <div className="flex-1" />
       <button
-        data-window-control
         onClick={handleMinimize}
         className="inline-flex h-8 w-11 items-center justify-center text-muted-foreground hover:bg-accent/80 transition-colors"
       >
         <Minus className="h-3.5 w-3.5" />
       </button>
       <button
-        data-window-control
         onClick={handleToggleMaximize}
         className="inline-flex h-8 w-11 items-center justify-center text-muted-foreground hover:bg-accent/80 transition-colors"
       >
         {maximized ? <Copy className="h-3 w-3" /> : <Square className="h-3 w-3" />}
       </button>
       <button
-        data-window-control
         onClick={handleClose}
         className="inline-flex h-8 w-11 items-center justify-center text-muted-foreground hover:bg-red-500 hover:text-white transition-colors"
       >
