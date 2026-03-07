@@ -10,22 +10,24 @@ const ACCESS_TOKEN_URL: &str = "https://github.com/login/oauth/access_token";
 /// Returns the GitHub OAuth Client ID from the environment.
 /// Set GITHUB_CLIENT_ID in your .env file (development) or system environment (production).
 /// Create a GitHub OAuth App at: https://github.com/settings/developers
-fn github_client_id() -> String {
-    std::env::var("GITHUB_CLIENT_ID").unwrap_or_default()
+fn github_client_id() -> AppResult<String> {
+    let id = std::env::var("GITHUB_CLIENT_ID").unwrap_or_default();
+    if id.is_empty() || id.starts_with("your_") {
+        return Err(AppError::Other(
+            "GITHUB_CLIENT_ID is not configured. \
+             Create a GitHub OAuth App at https://github.com/settings/developers \
+             and set the Client ID in your .env file."
+                .into(),
+        ));
+    }
+    Ok(id)
 }
 
-/// Start the GitHub Device Authorization Flow.
-/// Returns a code the user must enter at the verification URI.
 pub async fn start_device_flow(
     http: &reqwest::Client,
     scope: &str,
 ) -> AppResult<DeviceCodeResponse> {
-    let client_id = github_client_id();
-    if client_id.is_empty() {
-        return Err(AppError::Other(
-            "GITHUB_CLIENT_ID is not set. Add it to your .env file.".into(),
-        ));
-    }
+    let client_id = github_client_id()?;
 
     let resp = http
         .post(DEVICE_CODE_URL)
@@ -62,7 +64,7 @@ pub async fn poll_for_token(
     device_code: &str,
     mut interval: u64,
 ) -> AppResult<String> {
-    let client_id = github_client_id();
+    let client_id = github_client_id()?;
     loop {
         tokio::time::sleep(std::time::Duration::from_secs(interval)).await;
 
