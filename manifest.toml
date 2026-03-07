@@ -6,7 +6,7 @@
 version = "1.0.0"
 taurikit_version = "1.0.0"
 min_tauri = "2.0"
-min_rust = "1.80"
+min_rust = "1.88"
 min_bun = "1.1"
 
 [project]
