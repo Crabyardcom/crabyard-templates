@@ -2,7 +2,7 @@
   "markers": {},
   "npm_dev_dependencies": {
     "@heroicons/react": "^2.2.0",
-    "@slideup/design": "latest",
+    "@slideup/design": "github:tCoOpy/tesign",
     "lucide-react": "^0.577.0"
   }
 }
