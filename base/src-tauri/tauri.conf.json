@@ -4,9 +4,9 @@
   "version": "{{APP_VERSION}}",
   "identifier": "{{APP_BUNDLE_ID}}",
   "build": {
-    "beforeDevCommand": "bun run dev",
+    "beforeDevCommand": "{{PM_RUN}} dev",
     "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "bun run build",
+    "beforeBuildCommand": "{{PM_RUN}} build",
     "frontendDist": "../dist"
   },
   "app": {

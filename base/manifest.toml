@@ -46,7 +46,7 @@ label = "daisyUI"
 overlay = "ui/daisyui"
 
 [modules.package_manager]
-selected = "bun"
+selected = "{{PACKAGE_MANAGER}}"
 
 [tokens]
 # APP_NAME, APP_SLUG, APP_SLUG_SNAKE, APP_BUNDLE_ID, APP_VERSION,
