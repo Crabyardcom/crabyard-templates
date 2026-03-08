@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "lastSync": "",
+  "mapping": {
+    "button": {
+      "tesignSource": "src/components/ui/button.tsx",
+      "overlayTarget": "src/components/ui/button.tsx",
+      "syncMode": "adapted",
+      "sha256": "f723d09195f5907e004b4bd3d1ca6f813a58cbea50890ff44e582c8dfaa2d01e"
+    },
+    "input": {
+      "tesignSource": "src/components/ui/input.tsx",
+      "overlayTarget": "src/components/ui/input.tsx",
+      "syncMode": "adapted",
+      "sha256": "e6e7d86a1826052a6adc3d5beb8c0f56e7b0f006e8ba16995557aec0f63c4985"
+    },
+    "card": {
+      "tesignSource": "src/components/ui/card.tsx",
+      "overlayTarget": "src/components/ui/card.tsx",
+      "syncMode": "adapted",
+      "sha256": "018a7fbaf5e6183d990bd2d542e4b1bace86f90f6a87d63a0a2bd0488b62e34a"
+    },
+    "badge": {
+      "tesignSource": "src/components/ui/badge.tsx",
+      "overlayTarget": "src/components/ui/badge.tsx",
+      "syncMode": "adapted",
+      "sha256": "374950505823cc992b32d4d5420f2d5d53b09f3c5aadc85fc44898997afba054"
+    },
+    "separator": {
+      "tesignSource": "src/components/ui/separator.tsx",
+      "overlayTarget": "src/components/ui/separator.tsx",
+      "syncMode": "adapted",
+      "sha256": "10994e8621ac571209b91ddc2cd9452f6e028a1d3b74e5cc41290b7f64987a13"
+    },
+    "switch": {
+      "tesignSource": "src/components/ui/toggle.tsx",
+      "overlayTarget": "src/components/ui/switch.tsx",
+      "syncMode": "adapted",
+      "sha256": "8c91d6c337513c8eb6050b365c1bb32b57d99262c899f79bbf6bdea372f37e52"
+    },
+    "dialog": {
+      "tesignSource": "src/components/ui/modal.tsx",
+      "overlayTarget": "src/components/ui/dialog.tsx",
+      "syncMode": "manual",
+      "sha256": "f849d4e4328159ac1a5a29e69c7cb7759a360875da7cfa2353d62bb994f7888b"
+    },
+    "dropdown-menu": {
+      "tesignSource": "src/components/ui/dropdown.tsx",
+      "overlayTarget": "src/components/ui/dropdown-menu.tsx",
+      "syncMode": "manual",
+      "sha256": "aeab1f5b8dcb13d7a608958020cfa003d18a0e6feb28944c2f30c6d74cf56262"
+    },
+    "theme": {
+      "tesignSource": "src/styles/globals.css",
+      "overlayTarget": "src/index.css",
+      "syncMode": "theme",
+      "sha256": "16b5f5170da1539deeb88eff429fabc1fb47d4980f0ac4629d3d7eb65ef41d99"
+    }
+  },
+  "overlayOnly": [
+    "src/components/ui/tooltip.tsx",
+    "src/components/ui/avatar.tsx",
+    "src/components/ui/scroll-area.tsx",
+    "src/components/TitleBar.tsx"
+  ]
+}
