@@ -348,6 +348,33 @@ cargo check          # type-check without building
 - **Styling**: Tailwind CSS v4 with `cn()` helper for conditional classes.
 - **Imports**: Use `@/` path alias (maps to `src/`).
 - **Window management**: Custom title bar — never use browser `window.close()` etc. Use Tauri's `appWindow` API.
+- **All Tauri commands**: Must return `AppResult<T>`, never raw `Result`.
+
+---
+
+## Hard Rules — Do NOT
+
+- Use browser `window.close()`, `window.minimize()` — use Tauri's `appWindow` API.
+- Use `fetch()` for backend calls — use typed `invoke()` wrappers in `src/lib/tauri.ts`.
+- Add Rust commands without a typed TypeScript wrapper in `src/lib/tauri.ts`.
+- Skip `#[serde(rename_all = "camelCase")]` on Rust model structs.
+- Put secrets in frontend code — use `.env` with non-`VITE_` prefixed vars for backend-only secrets.
+- Modify `TitleBar.tsx` window control logic unless explicitly asked — it handles all three platforms.
+- Use Redux, MobX, or other state libraries — this project uses Zustand exclusively.
+- Import from `node_modules` paths directly — use `@/` alias for all project imports.
+- Use `any` type in TypeScript — strict mode is enabled.
+
+---
+
+## AI-Assisted Development
+
+This project includes three AI instruction files that stay in sync:
+
+| File | Tool |
+|------|------|
+| `CLAUDE.md` | Claude Code (Anthropic) |
+| `.cursorrules` | Cursor IDE |
+| `.github/copilot-instructions.md` | GitHub Copilot |
 
 ---
 
