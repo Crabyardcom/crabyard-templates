@@ -123,7 +123,7 @@ Backend:
 ## Build Commands
 
 ```bash
-bunx tauri dev          # Dev: launches Vite + Rust backend
+bun run tauri dev      # Dev: launches Vite + Rust backend
 bun tauri build        # Prod: creates platform installer (.msi/.dmg/.AppImage)
 cd src-tauri && cargo check   # Type-check Rust without building
 cd src-tauri && cargo test    # Run Rust tests

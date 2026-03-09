@@ -311,7 +311,7 @@ Customize the title bar content by editing `TitleBar.tsx`. The window has `decor
 
 ```bash
 # Development (launches both Vite dev server + Rust backend)
-bunx tauri dev
+bun run tauri dev
 
 # Production build (creates platform-specific installer)
 bun tauri build
