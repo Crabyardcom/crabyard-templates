@@ -18,6 +18,6 @@
     "updater:default",
     "process:default",
     "os:default",
-    "menu:default"
+    "core:menu:default"
   ]
 }
