@@ -18,19 +18,29 @@ interface Step {
 
 const defaultSteps: Step[] = [
   {
-    title: "Welcome to {{APP_NAME}} 👋",
+    title: "Welcome to {{APP_NAME}}",
     description:
-      "This is your new desktop app, built with Tauri and React. Let's take a quick look around.",
+      "Your new desktop app is built with Tauri v2 and React. It runs natively on Windows, macOS, and Linux with a tiny bundle size.",
   },
   {
-    title: "Settings",
+    title: "Project Layout",
     description:
-      "Click your avatar in the title bar to open Settings. You can configure your workspace folder, theme, and more.",
+      "Your frontend lives in src/ (React + TypeScript). The native backend is in src-tauri/ (Rust). They communicate through Tauri commands — type-safe function calls between JS and Rust.",
   },
   {
-    title: "You're all set!",
+    title: "Built-in Features",
     description:
-      "Start building by editing src/components/DashboardView.tsx. Happy coding!",
+      "You already have settings management, theme switching, window controls, error boundaries, and auto-updates wired up. Open Settings from the title bar to explore.",
+  },
+  {
+    title: "Add Capabilities",
+    description:
+      "Need notifications, clipboard, SQLite, or file system access? Run 'taurikit add <feature>' in your terminal — it handles Rust deps, JS deps, and permissions for you.",
+  },
+  {
+    title: "You're All Set!",
+    description:
+      "Replace DashboardView.tsx with your app's real UI. Run your dev server to see changes instantly. Check out the docs at taurikit.com for guides and examples.",
   },
 ];
 
@@ -74,12 +84,25 @@ export function OnboardingTour({
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle>{step.title}</DialogTitle>
-          <DialogDescription>{step.description}</DialogDescription>
+          <DialogDescription className="pt-1 leading-relaxed">
+            {step.description}
+          </DialogDescription>
         </DialogHeader>
         <div className="flex items-center justify-between pt-4">
-          <span className="text-xs text-muted-foreground">
-            {current + 1} / {steps.length}
-          </span>
+          <div className="flex items-center gap-1.5">
+            {steps.map((_, i) => (
+              <div
+                key={i}
+                className={`h-1.5 rounded-full transition-all ${
+                  i === current
+                    ? "w-4 bg-primary"
+                    : i < current
+                      ? "w-1.5 bg-primary/40"
+                      : "w-1.5 bg-muted-foreground/20"
+                }`}
+              />
+            ))}
+          </div>
           <div className="flex gap-2">
             {current > 0 && (
               <Button variant="outline" size="sm" onClick={() => setCurrent((c) => c - 1)}>
