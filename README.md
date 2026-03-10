@@ -218,3 +218,17 @@ Outputs are in `src-tauri/target/release/bundle/`:
 | Persistence | [tauri-plugin-store](https://github.com/tauri-apps/plugins-workspace/tree/v2/plugins/store) |
 | Error handling | [thiserror](https://github.com/dtolnay/thiserror) |
 | HTTP client | [reqwest](https://github.com/seanmonstar/reqwest) |
+
+---
+
+## AI-Assisted Development
+
+This project ships with AI coding instructions for three tools:
+
+| File | Tool |
+|------|------|
+| `CLAUDE.md` | [Claude Code](https://docs.anthropic.com/en/docs/claude-code) (Anthropic) |
+| `.cursorrules` | [Cursor](https://cursor.sh) IDE |
+| `.github/copilot-instructions.md` | [GitHub Copilot](https://github.com/features/copilot) |
+
+These files teach AI assistants the project architecture, the 5-step "add a Tauri command" pattern, naming conventions, and hard rules (e.g., never use browser `window.close()`, always use typed `invoke()` wrappers). Keep them in sync when the project structure changes.
