@@ -44,7 +44,7 @@ export function OnboardingTour({
 
   useEffect(() => {
     (async () => {
-      const store = await load("app-state.json", { autoSave: true });
+      const store = await load("app-state.json", { autoSave: true, defaults: {} });
       const done = await store.get<boolean>(STORE_KEY);
       if (!done) {
         setOpen(true);
@@ -56,7 +56,7 @@ export function OnboardingTour({
   const isLast = current === steps.length - 1;
 
   async function complete() {
-    const store = await load("app-state.json", { autoSave: true });
+    const store = await load("app-state.json", { autoSave: true, defaults: {} });
     await store.set(STORE_KEY, true);
     setOpen(false);
   }

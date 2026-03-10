@@ -54,23 +54,23 @@ pub fn run() {
         .plugin(tauri_plugin_store::Builder::new().build())
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_os::init())
+        .on_page_load(|webview, payload| {
+            if payload.event() == tauri::webview::PageLoadEvent::Finished
+                && webview.label() == "main"
+            {
+                if let Some(w) = webview.get_webview_window("main") {
+                    let _ = w.show();
+                }
+                if let Some(s) = webview.get_webview_window("splash") {
+                    let _ = s.close();
+                }
+            }
+        })
         .setup(|app| {
             app.manage(Mutex::new(AppState::default()));
 
             let menu = build_menu(app)?;
             app.set_menu(menu)?;
-
-            let main_window = app.get_webview_window("main").unwrap();
-            let splash_window = app.get_webview_window("splash");
-            let main_clone = main_window.clone();
-            main_window.on_page_load(move |_wv, payload| {
-                if payload.event() == tauri::webview::PageLoadEvent::Finished {
-                    let _ = main_clone.show();
-                    if let Some(ref sw) = splash_window {
-                        let _ = sw.close();
-                    }
-                }
-            });
 
             Ok(())
         })
