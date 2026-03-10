@@ -7,7 +7,40 @@ mod state;
 use std::sync::Mutex;
 
 use tauri::Manager;
+use tauri::menu::{MenuBuilder, SubmenuBuilder, PredefinedMenuItem};
 use state::AppState;
+
+fn build_menu(app: &tauri::App) -> tauri::Result<tauri::menu::Menu<tauri::Wry>> {
+    let file_menu = SubmenuBuilder::new(app, "File")
+        .close_window()
+        .separator()
+        .quit()
+        .build()?;
+
+    let edit_menu = SubmenuBuilder::new(app, "Edit")
+        .undo()
+        .redo()
+        .separator()
+        .cut()
+        .copy()
+        .paste()
+        .separator()
+        .select_all()
+        .build()?;
+
+    let window_menu = SubmenuBuilder::new(app, "Window")
+        .minimize()
+        .item(&PredefinedMenuItem::maximize(app, None)?)
+        .separator()
+        .close_window()
+        .build()?;
+
+    MenuBuilder::new(app)
+        .item(&file_menu)
+        .item(&edit_menu)
+        .item(&window_menu)
+        .build()
+}
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -23,6 +56,22 @@ pub fn run() {
         .plugin(tauri_plugin_os::init())
         .setup(|app| {
             app.manage(Mutex::new(AppState::default()));
+
+            let menu = build_menu(app)?;
+            app.set_menu(menu)?;
+
+            let main_window = app.get_webview_window("main").unwrap();
+            let splash_window = app.get_webview_window("splash");
+            let main_clone = main_window.clone();
+            main_window.on_page_load(move |_wv, payload| {
+                if payload.event() == tauri::webview::PageLoadEvent::Finished {
+                    let _ = main_clone.show();
+                    if let Some(ref sw) = splash_window {
+                        let _ = sw.close();
+                    }
+                }
+            });
+
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![

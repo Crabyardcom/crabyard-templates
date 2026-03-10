@@ -17,7 +17,19 @@
         "height": 700,
         "minWidth": 800,
         "minHeight": 500,
-        "decorations": false
+        "decorations": false,
+        "visible": false
+      },
+      {
+        "label": "splash",
+        "title": "{{APP_NAME}}",
+        "url": "splash.html",
+        "width": 360,
+        "height": 240,
+        "decorations": false,
+        "resizable": false,
+        "alwaysOnTop": true,
+        "center": true
       }
     ],
     "security": {

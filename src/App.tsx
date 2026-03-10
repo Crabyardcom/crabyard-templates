@@ -3,14 +3,19 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { LoginView } from "@/components/LoginView";
 import { DashboardView } from "@/components/DashboardView";
 import { TitleBar } from "@/components/TitleBar";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { useAuth } from "@/hooks/useAuth";
 import { useSettings } from "@/hooks/useSettings";
+import { useTheme } from "@/hooks/useTheme";
 import { UpdateBanner } from "@/components/UpdateBanner";
+import { OnboardingTour } from "@/components/OnboardingTour";
+import { Toaster } from "sonner";
 import { Loader2 } from "lucide-react";
 
 function App() {
   const { auth, authLoading, restore } = useAuth();
   const { loadSettings } = useSettings();
+  useTheme();
 
   useEffect(() => {
     restore();
@@ -30,23 +35,30 @@ function App() {
 
   if (!auth.authenticated) {
     return (
-      <TooltipProvider>
-        <div className="flex h-screen flex-col bg-background">
-          <TitleBar />
-          <LoginView />
-        </div>
-      </TooltipProvider>
+      <ErrorBoundary>
+        <TooltipProvider>
+          <div className="flex h-screen flex-col bg-background">
+            <TitleBar />
+            <LoginView />
+          </div>
+        </TooltipProvider>
+        <Toaster position="bottom-right" richColors />
+      </ErrorBoundary>
     );
   }
 
   return (
-    <TooltipProvider>
-      <div className="flex h-screen flex-col bg-background text-foreground">
-        <TitleBar />
-        <DashboardView />
-        <UpdateBanner />
-      </div>
-    </TooltipProvider>
+    <ErrorBoundary>
+      <TooltipProvider>
+        <div className="flex h-screen flex-col bg-background text-foreground">
+          <TitleBar />
+          <DashboardView />
+          <UpdateBanner />
+          <OnboardingTour />
+        </div>
+      </TooltipProvider>
+      <Toaster position="bottom-right" richColors />
+    </ErrorBoundary>
   );
 }
 

@@ -45,6 +45,10 @@ overlay = "ui/shadcn"
 label = "daisyUI"
 overlay = "ui/daisyui"
 
+[modules.ui.options.minimal]
+label = "minimal (bare Tailwind)"
+overlay = "ui/minimal"
+
 [modules.package_manager]
 selected = "{{PACKAGE_MANAGER}}"
 

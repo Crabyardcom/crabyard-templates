@@ -1,7 +1,8 @@
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { useState, useEffect } from "react";
-import { Minus, Square, X, Copy } from "lucide-react";
+import { Minus, Square, X, Copy, Sun, Moon } from "lucide-react";
 import { getDesktopPlatform } from "@/lib/platform";
+import { useTheme } from "@/hooks/useTheme";
 
 const os = getDesktopPlatform();
 
@@ -114,6 +115,7 @@ function WindowsControls({
 export function TitleBar() {
   const [maximized, setMaximized] = useState(false);
   const appWindow = getCurrentWindow();
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     appWindow.isMaximized().then(setMaximized);
@@ -155,6 +157,13 @@ export function TitleBar() {
         </span>
       )}
       <div className="flex-1" />
+      <button
+        data-window-control
+        onClick={toggleTheme}
+        className="inline-flex h-8 w-8 items-center justify-center text-base-content/60 hover:bg-base-300 rounded-sm transition-colors"
+      >
+        {theme === "dark" ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
+      </button>
       {os === "linux" && (
         <LinuxControls
           maximized={maximized}

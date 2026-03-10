@@ -49,6 +49,10 @@ overlay = "ui/daisyui"
 label = "tesign"
 overlay = "ui/tesign"
 
+[modules.ui.options.minimal]
+label = "minimal (bare Tailwind)"
+overlay = "ui/minimal"
+
 [modules.package_manager]
 selected = "bun"
 
