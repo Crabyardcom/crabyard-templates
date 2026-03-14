@@ -1,4 +1,4 @@
-// TAURIKIT:MOD_AUTH
+﻿// CRABYARD:MOD_AUTH
 mod commands;
 mod error;
 mod models;
@@ -75,7 +75,7 @@ pub fn run() {
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
-            // TAURIKIT:COMMANDS
+            // CRABYARD:COMMANDS
             commands::settings::get_settings,
             commands::settings::set_settings,
             commands::settings::select_workspace_folder,

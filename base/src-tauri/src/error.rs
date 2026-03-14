@@ -1,8 +1,8 @@
-use serde::Serialize;
+﻿use serde::Serialize;
 
 #[derive(Debug, thiserror::Error)]
 pub enum AppError {
-    // TAURIKIT:AUTH_ERRORS
+    // CRABYARD:AUTH_ERRORS
 
     #[error("IO error: {0}")]
     Io(#[from] std::io::Error),

@@ -1,2 +1,2 @@
-// TAURIKIT:MOD_AUTH_MODEL
+﻿// CRABYARD:MOD_AUTH_MODEL
 pub mod settings;

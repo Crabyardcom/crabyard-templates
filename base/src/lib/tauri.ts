@@ -1,13 +1,13 @@
-import { invoke } from "@tauri-apps/api/core";
+﻿import { invoke } from "@tauri-apps/api/core";
 import type { AppSettings } from "./types";
 
-// TAURIKIT:AUTH_IMPORTS
+// CRABYARD:AUTH_IMPORTS
 
 type CommandMap = {
   get_settings: [void, AppSettings];
   set_settings: [{ settings: AppSettings }, void];
   select_workspace_folder: [void, string | null];
-  // TAURIKIT:COMMAND_TYPES
+  // CRABYARD:COMMAND_TYPES
 };
 
 type CommandName = keyof CommandMap;
@@ -21,7 +21,7 @@ export function invokeCommand<T extends CommandName>(
   return invoke<CommandReturn<T>>(cmd, payload as Record<string, unknown>);
 }
 
-// TAURIKIT:AUTH_COMMANDS
+// CRABYARD:AUTH_COMMANDS
 
 // ─── Settings commands ──────────────────────────────────────────────────────
 

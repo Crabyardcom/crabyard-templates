@@ -1,11 +1,11 @@
-pub struct AppState {
-    // TAURIKIT:AUTH_STATE
+﻿pub struct AppState {
+    // CRABYARD:AUTH_STATE
 }
 
 impl Default for AppState {
     fn default() -> Self {
         Self {
-            // TAURIKIT:AUTH_STATE_DEFAULTS
+            // CRABYARD:AUTH_STATE_DEFAULTS
         }
     }
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useAppStore } from "@/store/appStore";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -37,7 +37,7 @@ const quickLinks = [
   },
   {
     title: "Add Features",
-    description: "Run taurikit add <feature> to extend your app",
+    description: "Run crabyard add <feature> to extend your app",
     icon: Puzzle,
   },
   {
@@ -166,7 +166,7 @@ export function DashboardView() {
                   </div>
                 </div>
                 <code className="rounded-md bg-muted px-3 py-1.5 text-xs font-mono whitespace-nowrap">
-                  taurikit add &lt;feature&gt;
+                  crabyard add &lt;feature&gt;
                 </code>
               </div>
             </CardContent>
@@ -223,9 +223,9 @@ export function DashboardView() {
                 variant="ghost"
                 size="sm"
                 className="w-full justify-start text-xs h-8"
-                onClick={() => openUrl("https://taurikit.com/docs")}
+                onClick={() => openUrl("https://crabyard.com/docs")}
               >
-                TauriKit Documentation
+                Crabyard Documentation
               </Button>
               <Button
                 variant="ghost"

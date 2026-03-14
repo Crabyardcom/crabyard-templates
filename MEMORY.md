@@ -1,7 +1,7 @@
-# TauriKit Scaffold — Project Memory
+﻿# Crabyard Scaffold — Project Memory
 
 ## Project
-Converting a GitHub Repo Syncer Tauri v2 app into a reusable TauriKit starter template.
+Converting a GitHub Repo Syncer Tauri v2 app into a reusable Crabyard starter template.
 Working dir: `c:\Users\Yannick\Desktop\programming\desktop applicatzion github\scaffold`
 
 ## Phase 0: COMPLETE — Scaffold extraction
@@ -59,18 +59,18 @@ find "$TMPDIR" -type f \( -name "*.toml" -o -name "*.rs" -o -name "*.json" \) -p
 cd "$TMPDIR/src-tauri" && cargo check
 ```
 
-## Phase 1: COMPLETE — taurikit CLI generator
+## Phase 1: COMPLETE — crabyard CLI generator
 
-Location: `c:\Users\Yannick\Desktop\programming\desktop applicatzion github\taurikit-cli\`
+Location: `c:\Users\Yannick\Desktop\programming\desktop applicatzion github\crabyard-cli\`
 Files: `src/main.rs`, `src/generate.rs`, `src/tokens.rs`, `src/hooks.rs`
 
 ### CLI usage
 ```bash
 # Interactive
-TAURIKIT_TEMPLATE=../scaffold taurikit new
+CRABYARD_TEMPLATE=../scaffold crabyard new
 
 # Non-interactive (app name given, all other values defaulted)
-TAURIKIT_TEMPLATE=../scaffold taurikit new "My App" --yes --no-git --no-install
+CRABYARD_TEMPLATE=../scaffold crabyard new "My App" --yes --no-git --no-install
 ```
 
 ### Key design decisions
@@ -79,7 +79,7 @@ TAURIKIT_TEMPLATE=../scaffold taurikit new "My App" --yes --no-git --no-install
 - Binary files (png, ico, lock) copied as-is; text files get `{{TOKEN}}` replacement
 - `.claude`, `node_modules`, `target`, `.git`, `dist` skipped during copy
 - `.env` created from `.env.example` (tokens already substituted) at generation time
-- Template resolved: `--template` flag → `TAURIKIT_TEMPLATE` env → `~/.taurikit/templates/`
+- Template resolved: `--template` flag → `CRABYARD_TEMPLATE` env → `~/.crabyard/templates/`
 - `config.template` must be `.clone()`d before passing to `resolve_template` (partial move issue)
 
 ### Validated end-to-end
@@ -89,10 +89,10 @@ TAURIKIT_TEMPLATE=../scaffold taurikit new "My App" --yes --no-git --no-install
 ## Phase 1 continued: COMPLETE — install scripts, CI, doctor
 
 ### Install scripts
-- `install.sh` — `curl -fsSL .../install.sh | sh` (detects OS/arch, installs to `~/.taurikit/bin/`, adds to PATH)
-- `install.ps1` — `irm .../install.ps1 | iex` (detects arch, installs to `~/.taurikit/bin/`, adds to user PATH)
-- Both support `TAURIKIT_VERSION` and `TAURIKIT_INSTALL_DIR` env overrides
-- GitHub repo: `Demoen/taurikit-cli`
+- `install.sh` — `curl -fsSL .../install.sh | sh` (detects OS/arch, installs to `~/.crabyard/bin/`, adds to PATH)
+- `install.ps1` — `irm .../install.ps1 | iex` (detects arch, installs to `~/.crabyard/bin/`, adds to user PATH)
+- Both support `CRABYARD_VERSION` and `CRABYARD_INSTALL_DIR` env overrides
+- GitHub repo: `Demoen/crabyard-cli`
 
 ### GitHub Actions release workflow
 - `.github/workflows/release.yml` — triggers on `v*` tag push
@@ -100,7 +100,7 @@ TAURIKIT_TEMPLATE=../scaffold taurikit new "My App" --yes --no-git --no-install
 - Unix: `.tar.gz`, Windows: `.zip`
 - Uses `softprops/action-gh-release@v2` with auto release notes
 
-### taurikit doctor
+### crabyard doctor
 - `src/doctor.rs` — checks Rust, Cargo, Node.js, package manager, Git, Tauri CLI
 - Windows: checks WebView2 via winreg (cfg(windows) dependency)
 - Linux: checks webkit2gtk, gtk3, libsoup3 via pkg-config
@@ -114,7 +114,7 @@ TAURIKIT_TEMPLATE=../scaffold taurikit new "My App" --yes --no-git --no-install
 ### Overlay structure
 ```
 scaffold/
-  base/          — Core template with TAURIKIT markers
+  base/          — Core template with CRABYARD markers
   auth/github/   — GitHub Device Flow OAuth overlay
   auth/google/   — Google OAuth (browser-based) overlay
   auth/none/     — No-auth overlay (strips auth code)
@@ -125,12 +125,12 @@ scaffold/
 
 ### CLI flags
 ```bash
-taurikit new "My App" --auth github|google|none --ui shadcn|daisyui
+crabyard new "My App" --auth github|google|none --ui shadcn|daisyui
 ```
 
 ### Assembly pipeline
 1. Copy `base/` as foundation
-2. Apply auth overlay (file copies + inject Cargo deps at `# TAURIKIT:AUTH_DEPS`)
+2. Apply auth overlay (file copies + inject Cargo deps at `# CRABYARD:AUTH_DEPS`)
 3. Apply UI overlay (file copies + merge npm deps from `module.json`)
 4. Replace `{{TOKEN}}` placeholders
 
@@ -145,13 +145,13 @@ taurikit new "My App" --auth github|google|none --ui shadcn|daisyui
 ## Phase 3: COMPLETE — License validation + API + template distribution
 
 ### CLI additions
-- `--license-key` flag (also `TAURIKIT_LICENSE_KEY` env)
+- `--license-key` flag (also `CRABYARD_LICENSE_KEY` env)
 - `src/license.rs` — validates key via API, downloads + caches template tarball
-- Template resolution order: `--template` flag → license key → `~/.taurikit/templates/`
-- Cached at `{cache_dir}/taurikit/templates/{version}/`
+- Template resolution order: `--template` flag → license key → `~/.crabyard/templates/`
+- Cached at `{cache_dir}/crabyard/templates/{version}/`
 - New deps: `reqwest` (blocking+json), `flate2`, `tar`, `dirs`
 
-### Cloudflare Worker API (`taurikit-api/`)
+### Cloudflare Worker API (`crabyard-api/`)
 - Hono router on Cloudflare Workers
 - D1 database for license storage
 - R2 bucket for template tarball hosting
@@ -176,7 +176,7 @@ taurikit new "My App" --auth github|google|none --ui shadcn|daisyui
 
 ## Phase 4: COMPLETE — Landing page + email delivery
 
-### Landing page (`taurikit-web/`)
+### Landing page (`crabyard-web/`)
 - Astro 5.18.0 + Tailwind CSS v4 (@tailwindcss/vite)
 - Dark theme: zinc-950, orange accent, Inter font
 - Pages: `index.astro` (full landing), `success.astro` (post-checkout)
@@ -187,7 +187,7 @@ taurikit new "My App" --auth github|google|none --ui shadcn|daisyui
 ### API additions
 - `POST /stripe/checkout` — creates Stripe checkout session
 - `GET /stripe/session/:sessionId` — retrieves license key by Stripe session (for success page)
-- CORS middleware: `hono/cors`, origin restricted to `https://taurikit.dev`
+- CORS middleware: `hono/cors`, origin restricted to `https://crabyard.dev`
 - Resend email: sends styled HTML email with license key + quick-start instructions
 - New secret: `RESEND_API_KEY` (set via `wrangler secret put`)
 - New dep: `resend@6.9.3`
@@ -196,24 +196,24 @@ taurikit new "My App" --auth github|google|none --ui shadcn|daisyui
 - Phase 5: ui/tesign overlay (pending @slideup/design)
 - Deploy: `wrangler deploy` (API), Cloudflare Pages or Vercel (landing page)
 - Set Stripe secrets, Resend API key, D1 database ID in wrangler.toml
-- Tag v0.2.0 on taurikit-cli repo
+- Tag v0.2.0 on crabyard-cli repo
 
 ## Phase 5: COMPLETE — Documentation + CI/CD + deploy prep
 
 ### READMEs
-- `taurikit-cli/README.md` — install, usage, flags, template system, license key, development, release
-- `taurikit-api/README.md` — stack, endpoints, setup (D1/R2/secrets), deploy
+- `crabyard-cli/README.md` — install, usage, flags, template system, license key, development, release
+- `crabyard-api/README.md` — stack, endpoints, setup (D1/R2/secrets), deploy
 
 ### CI/CD workflows
-- `taurikit-api/.github/workflows/deploy.yml` — type check + deploy on push to main (src/ changes)
-- `taurikit-web/.github/workflows/deploy.yml` — build + deploy to CF Pages on push to main (src/ changes)
+- `crabyard-api/.github/workflows/deploy.yml` — type check + deploy on push to main (src/ changes)
+- `crabyard-web/.github/workflows/deploy.yml` — build + deploy to CF Pages on push to main (src/ changes)
 - Both use `oven-sh/setup-bun`, require `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID` secrets
 
 ### Deploy guide
 - `DEPLOY.md` (workspace root) — step-by-step for API, landing page, CLI release, Stripe webhook, DNS
-- Install scripts (`install.sh`, `install.ps1`) copied to `taurikit-web/public/` for serving at `taurikit.dev/install.sh`
+- Install scripts (`install.sh`, `install.ps1`) copied to `crabyard-web/public/` for serving at `crabyard.dev/install.sh`
 
 ### Remaining
 - Phase 6: ui/tesign overlay (pending @slideup/design)
 - Execute deploy steps from DEPLOY.md (requires Cloudflare + Stripe + Resend credentials)
-- Tag v0.2.0 on taurikit-cli
+- Tag v0.2.0 on crabyard-cli

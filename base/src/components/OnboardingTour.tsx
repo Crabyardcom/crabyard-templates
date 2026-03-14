@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { load } from "@tauri-apps/plugin-store";
 import {
   Dialog,
@@ -35,12 +35,12 @@ const defaultSteps: Step[] = [
   {
     title: "Add Capabilities",
     description:
-      "Need notifications, clipboard, SQLite, or file system access? Run 'taurikit add <feature>' in your terminal — it handles Rust deps, JS deps, and permissions for you.",
+      "Need notifications, clipboard, SQLite, or file system access? Run 'crabyard add <feature>' in your terminal — it handles Rust deps, JS deps, and permissions for you.",
   },
   {
     title: "You're All Set!",
     description:
-      "Replace DashboardView.tsx with your app's real UI. Run your dev server to see changes instantly. Check out the docs at taurikit.com for guides and examples.",
+      "Replace DashboardView.tsx with your app's real UI. Run your dev server to see changes instantly. Check out the docs at crabyard.com for guides and examples.",
   },
 ];
 

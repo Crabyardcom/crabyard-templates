@@ -1,10 +1,10 @@
-# TauriKit Template Manifest
+﻿# Crabyard Template Manifest
 # This file describes the scaffold and its modules.
-# It is used by the taurikit CLI generator — do not delete it.
+# It is used by the crabyard CLI generator — do not delete it.
 
 [template]
 version = "1.5.6"
-taurikit_version = "1.5.6"
+crabyard_version = "1.5.6"
 min_tauri = "2.0"
 min_rust = "1.88"
 min_bun = "1.1"
@@ -58,4 +58,4 @@ selected = "bun"
 
 [tokens]
 # APP_NAME, APP_SLUG, APP_SLUG_SNAKE, APP_BUNDLE_ID, APP_VERSION,
-# APP_DESCRIPTION, APP_AUTHOR, GENERATED_AT, TAURIKIT_VERSION
+# APP_DESCRIPTION, APP_AUTHOR, GENERATED_AT, CRABYARD_VERSION
