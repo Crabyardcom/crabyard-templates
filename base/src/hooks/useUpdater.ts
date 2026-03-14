@@ -79,7 +79,9 @@ export function useUpdater() {
   }, []);
 
   useEffect(() => {
-    checkForUpdate();
+    if (import.meta.env.PROD) {
+      checkForUpdate();
+    }
   }, [checkForUpdate]);
 
   return { ...state, checkForUpdate, installUpdate, dismiss };
