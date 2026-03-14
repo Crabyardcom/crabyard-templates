@@ -6,39 +6,6 @@ import { useTheme } from "@/hooks/useTheme";
 
 const os = getDesktopPlatform();
 
-function MacControls({
-  onClose,
-  onMinimize,
-  onToggleMaximize,
-}: {
-  onClose: () => void;
-  onMinimize: () => void;
-  onToggleMaximize: () => void;
-}) {
-  return (
-    <div className="flex items-center gap-2 pl-3" data-window-control>
-      <button
-        onClick={onClose}
-        className="group flex h-3 w-3 items-center justify-center rounded-full bg-[#ff5f57] transition-opacity hover:opacity-90"
-      >
-        <X className="h-1.5 w-1.5 stroke-[3] text-[#4d0000] opacity-0 group-hover:opacity-100" />
-      </button>
-      <button
-        onClick={onMinimize}
-        className="group flex h-3 w-3 items-center justify-center rounded-full bg-[#febc2e] transition-opacity hover:opacity-90"
-      >
-        <Minus className="h-1.5 w-1.5 stroke-[3] text-[#5e4000] opacity-0 group-hover:opacity-100" />
-      </button>
-      <button
-        onClick={onToggleMaximize}
-        className="group flex h-3 w-3 items-center justify-center rounded-full bg-[#28c840] transition-opacity hover:opacity-90"
-      >
-        <Square className="h-1.5 w-1.5 stroke-[3] text-[#0a4a00] opacity-0 group-hover:opacity-100" />
-      </button>
-    </div>
-  );
-}
-
 function LinuxControls({
   maximized,
   onClose,
@@ -128,6 +95,27 @@ export function TitleBar() {
   };
   const handleClose = () => appWindow.close();
 
+  if (os === "macos") {
+    return (
+      <div
+        className="flex h-8 shrink-0 items-center bg-card/80 select-none"
+        onMouseDown={() => appWindow.startDragging()}
+      >
+        <div className="w-[72px]" />
+        <span className="flex-1 text-center text-[11px] text-muted-foreground/70 font-medium tracking-tight pointer-events-none">
+          {import.meta.env.VITE_APP_NAME}
+        </span>
+        <button
+          data-window-control
+          onClick={toggleTheme}
+          className="inline-flex h-8 w-8 items-center justify-center text-muted-foreground hover:bg-accent/80 rounded-sm transition-colors"
+        >
+          {theme === "dark" ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div
       className="flex h-8 shrink-0 items-center bg-card/80 select-none"
@@ -140,22 +128,9 @@ export function TitleBar() {
         handleToggleMaximize();
       }}
     >
-      {os === "macos" && (
-        <MacControls
-          onClose={handleClose}
-          onMinimize={handleMinimize}
-          onToggleMaximize={handleToggleMaximize}
-        />
-      )}
-      {os === "macos" ? (
-        <span className="absolute inset-x-0 text-center text-[11px] text-muted-foreground/70 font-medium tracking-tight pointer-events-none">
-          {import.meta.env.VITE_APP_NAME}
-        </span>
-      ) : (
-        <span className="pl-3 text-[11px] text-muted-foreground/70 font-medium tracking-tight">
-          {import.meta.env.VITE_APP_NAME}
-        </span>
-      )}
+      <span className="pl-3 text-[11px] text-muted-foreground/70 font-medium tracking-tight">
+        {import.meta.env.VITE_APP_NAME}
+      </span>
       <div className="flex-1" />
       <button
         data-window-control
