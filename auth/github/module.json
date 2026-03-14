@@ -1,4 +1,4 @@
-﻿{
+{
   "markers": {
     "CRABYARD:MOD_AUTH": "mod auth;",
     "CRABYARD:COMMANDS": "commands::auth::login,\n            commands::auth::poll_auth,\n            commands::auth::logout,\n            commands::auth::get_auth_status,\n            commands::auth::restore_auth,",

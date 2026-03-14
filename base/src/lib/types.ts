@@ -1,4 +1,4 @@
-﻿// CRABYARD:AUTH_TYPES
+// CRABYARD:AUTH_TYPES
 
 // Settings — mirrors Rust models/settings.rs AppSettings
 export interface AppSettings {

@@ -1,4 +1,4 @@
-﻿# Crabyard Scaffold — Project Memory
+# Crabyard Scaffold — Project Memory
 
 ## Project
 Converting a GitHub Repo Syncer Tauri v2 app into a reusable Crabyard starter template.

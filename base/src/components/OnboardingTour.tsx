@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { load } from "@tauri-apps/plugin-store";
 import {
   Dialog,

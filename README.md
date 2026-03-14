@@ -1,4 +1,4 @@
-﻿# {{APP_NAME}}
+# {{APP_NAME}}
 
 Built with [Crabyard](https://crabyard.dev) · Tauri v2 · React 19 · TypeScript
 

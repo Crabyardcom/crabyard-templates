@@ -1,4 +1,4 @@
-﻿pub struct AppState {
+pub struct AppState {
     // CRABYARD:AUTH_STATE
 }
 

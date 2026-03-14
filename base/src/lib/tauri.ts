@@ -1,4 +1,4 @@
-﻿import { invoke } from "@tauri-apps/api/core";
+import { invoke } from "@tauri-apps/api/core";
 import type { AppSettings } from "./types";
 
 // CRABYARD:AUTH_IMPORTS

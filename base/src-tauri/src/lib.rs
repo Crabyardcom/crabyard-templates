@@ -1,4 +1,4 @@
-﻿// CRABYARD:MOD_AUTH
+// CRABYARD:MOD_AUTH
 mod commands;
 mod error;
 mod models;

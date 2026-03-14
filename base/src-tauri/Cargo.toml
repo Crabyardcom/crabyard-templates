@@ -1,4 +1,4 @@
-﻿[package]
+[package]
 name = "{{APP_SLUG}}"
 version = "{{APP_VERSION}}"
 description = "{{APP_DESCRIPTION}}"
