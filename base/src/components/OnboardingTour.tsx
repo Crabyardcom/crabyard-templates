@@ -23,6 +23,11 @@ const defaultSteps: Step[] = [
       "Your new desktop app is built with Tauri v2 and React. It runs natively on Windows, macOS, and Linux with a tiny bundle size.",
   },
   {
+    title: "Replace the App Icon",
+    description:
+      "Your app ships with a crab placeholder icon. To use your own: drop a 1024×1024 PNG into public/ and run 'bun run tauri icon public/your-icon.png'. Tauri auto-generates all platform sizes (ICO, ICNS, PNG variants).",
+  },
+  {
     title: "Project Layout",
     description:
       "Your frontend lives in src/ (React + TypeScript). The native backend is in src-tauri/ (Rust). They communicate through Tauri commands — type-safe function calls between JS and Rust.",
