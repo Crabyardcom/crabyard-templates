@@ -223,12 +223,13 @@ Outputs are in `src-tauri/target/release/bundle/`:
 
 ## AI-Assisted Development
 
-This project ships with AI coding instructions for three tools:
+This project ships with AI coding instructions for common coding agents:
 
 | File | Tool |
 |------|------|
+| `AGENTS.md` | Codex and other agent-based coding tools |
 | `CLAUDE.md` | [Claude Code](https://docs.anthropic.com/en/docs/claude-code) (Anthropic) |
 | `.cursorrules` | [Cursor](https://cursor.sh) IDE |
 | `.github/copilot-instructions.md` | [GitHub Copilot](https://github.com/features/copilot) |
 
-These files teach AI assistants the project architecture, the 5-step "add a Tauri command" pattern, naming conventions, and hard rules (e.g., never use browser `window.close()`, always use typed `invoke()` wrappers). Keep them in sync when the project structure changes.
+These files teach AI assistants the project architecture, the end-to-end Tauri command pattern, frontend/backend data flow, UI and desktop UX expectations, and hard rules such as using typed `invoke()` wrappers instead of direct backend calls. Keep them in sync when the project structure changes.
