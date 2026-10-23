@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
     loadSettings();
-  }, []);
+  }, [loadSettings]);
 
   return (
     <ErrorBoundary>

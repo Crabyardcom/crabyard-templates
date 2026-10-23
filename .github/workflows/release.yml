@@ -1,0 +1,33 @@
+name: Release templates
+on:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: write
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Package versioned template
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          version="${TAG#v}"
+          test "$version" = "$(sed -n 's/^version = "\([^"]*\)"/\1/p' manifest.toml | head -1)"
+          tar -czf "crabyard-$version.tar.gz" --exclude=node_modules --exclude=target --exclude=.git --exclude=dist base auth ui manifest.toml
+          sha256sum "crabyard-$version.tar.gz" > "crabyard-$version.tar.gz.sha256"
+      - name: Upload licensed template
+        env:
+          ADMIN_KEY: ${{ secrets.ADMIN_KEY }}
+          API_URL: ${{ vars.API_URL || 'https://crabyard-api-production.up.railway.app' }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          test -n "$ADMIN_KEY"
+          curl --fail-with-body --retry 2 -X POST "$API_URL/template/upload?version=${TAG#v}" -H "X-Admin-Key: $ADMIN_KEY" -H 'Content-Type: application/gzip' --data-binary "@crabyard-${TAG#v}.tar.gz"
+      - name: Create release record
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: gh release create "$TAG" --verify-tag --generate-notes --notes 'Licensed templates are distributed through the Crabyard API. Repository access and license terms are independent.'

@@ -3,10 +3,10 @@
 # It is used by the crabyard CLI generator — do not delete it.
 
 [template]
-version = "1.6.0"
-crabyard_version = "1.6.0"
+version = "1.7.0"
+crabyard_version = "1.7.0"
 min_tauri = "2.0"
-min_rust = "1.88"
+min_rust = "1.90"
 min_bun = "1.1"
 
 [project]

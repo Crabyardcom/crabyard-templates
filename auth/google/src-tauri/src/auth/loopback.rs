@@ -1,18 +1,17 @@
+use base64::{Engine, engine::general_purpose::URL_SAFE_NO_PAD};
 use rand::Rng;
 use reqwest::Client;
 use sha2::{Digest, Sha256};
-use base64::{engine::general_purpose::URL_SAFE_NO_PAD, Engine};
-use tokio::net::TcpListener;
 use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader};
+use tokio::net::TcpListener;
 use url::Url;
 
 use crate::error::{AppError, AppResult};
 use crate::models::auth::GoogleTokenResponse;
 
 fn google_client_id() -> AppResult<String> {
-    std::env::var("GOOGLE_CLIENT_ID").map_err(|_| {
-        AppError::AuthProvider("GOOGLE_CLIENT_ID not set in .env".into())
-    })
+    std::env::var("GOOGLE_CLIENT_ID")
+        .map_err(|_| AppError::AuthProvider("GOOGLE_CLIENT_ID not set in .env".into()))
 }
 
 fn generate_pkce() -> (String, String) {
@@ -48,10 +47,13 @@ pub struct AuthFlowResult {
 /// Bind a loopback listener and build the Google OAuth URL.
 pub async fn start_auth_flow() -> AppResult<(AuthFlowResult, TcpListener)> {
     let client_id = google_client_id()?;
-    let listener = TcpListener::bind("127.0.0.1:0").await
+    let listener = TcpListener::bind("127.0.0.1:0")
+        .await
         .map_err(|e| AppError::Other(format!("Failed to bind loopback listener: {e}")))?;
-    let port = listener.local_addr()
-        .map_err(|e| AppError::Other(e.to_string()))?.port();
+    let port = listener
+        .local_addr()
+        .map_err(|e| AppError::Other(e.to_string()))?
+        .port();
 
     let (verifier, challenge) = generate_pkce();
     let state = generate_state();
@@ -71,23 +73,29 @@ pub async fn start_auth_flow() -> AppResult<(AuthFlowResult, TcpListener)> {
     );
 
     Ok((
-        AuthFlowResult { auth_url, verifier, state, port },
+        AuthFlowResult {
+            auth_url,
+            verifier,
+            state,
+            port,
+        },
         listener,
     ))
 }
 
 /// Wait for the OAuth callback on the loopback listener.
 /// Returns the authorization code.
-pub async fn wait_for_callback(
-    listener: TcpListener,
-    expected_state: &str,
-) -> AppResult<String> {
-    let (mut stream, _) = listener.accept().await
+pub async fn wait_for_callback(listener: TcpListener, expected_state: &str) -> AppResult<String> {
+    let (mut stream, _) = listener
+        .accept()
+        .await
         .map_err(|e| AppError::Other(format!("Loopback accept failed: {e}")))?;
 
     let mut reader = BufReader::new(&mut stream);
     let mut request_line = String::new();
-    reader.read_line(&mut request_line).await
+    reader
+        .read_line(&mut request_line)
+        .await
         .map_err(|e| AppError::Other(e.to_string()))?;
 
     // Parse GET /callback?code=...&state=... HTTP/1.1
@@ -111,22 +119,30 @@ pub async fn wait_for_callback(
 
     // Get writable half — drop reader first
     drop(reader);
-    stream.write_all(response.as_bytes()).await
+    stream
+        .write_all(response.as_bytes())
+        .await
         .map_err(|e| AppError::Other(e.to_string()))?;
-    stream.shutdown().await
+    stream
+        .shutdown()
+        .await
         .map_err(|e| AppError::Other(e.to_string()))?;
 
     if let Some(error) = params.get("error") {
-        return Err(AppError::AuthProvider(format!("Google auth error: {error}")));
+        return Err(AppError::AuthProvider(format!(
+            "Google auth error: {error}"
+        )));
     }
 
-    let state = params.get("state")
+    let state = params
+        .get("state")
         .ok_or_else(|| AppError::Other("Missing state parameter".into()))?;
     if state.as_ref() != expected_state {
         return Err(AppError::Other("State mismatch — possible CSRF".into()));
     }
 
-    let code = params.get("code")
+    let code = params
+        .get("code")
         .ok_or_else(|| AppError::Other("Missing authorization code".into()))?;
 
     Ok(code.to_string())
@@ -156,7 +172,9 @@ pub async fn exchange_code(
 
     if !resp.status().is_success() {
         let body = resp.text().await.unwrap_or_default();
-        return Err(AppError::AuthProvider(format!("Token exchange failed: {body}")));
+        return Err(AppError::AuthProvider(format!(
+            "Token exchange failed: {body}"
+        )));
     }
 
     resp.json::<GoogleTokenResponse>().await.map_err(Into::into)

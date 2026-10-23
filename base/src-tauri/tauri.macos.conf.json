@@ -3,8 +3,26 @@
   "app": {
     "windows": [
       {
+        "label": "main",
+        "title": "{{APP_NAME}}",
+        "width": 1100,
+        "height": 700,
+        "minWidth": 800,
+        "minHeight": 500,
+        "visible": false,
         "decorations": true,
         "titleBarStyle": "overlay"
+      },
+      {
+        "label": "splash",
+        "title": "{{APP_NAME}}",
+        "url": "splash.html",
+        "width": 360,
+        "height": 240,
+        "decorations": false,
+        "resizable": false,
+        "alwaysOnTop": true,
+        "center": true
       }
     ]
   }

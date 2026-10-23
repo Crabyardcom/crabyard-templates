@@ -231,7 +231,7 @@ export function DashboardView() {
                 variant="ghost"
                 size="sm"
                 className="w-full justify-start text-xs h-8"
-                onClick={() => openUrl("https://github.com/nicholasgriffintn/tauri-starter")}
+                onClick={() => openUrl("https://github.com/Crabyardcom")}
               >
                 Source on GitHub
               </Button>

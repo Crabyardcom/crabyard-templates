@@ -6,9 +6,9 @@ mod state;
 
 use std::sync::Mutex;
 
-use tauri::Manager;
-use tauri::menu::{MenuBuilder, SubmenuBuilder, PredefinedMenuItem};
 use state::AppState;
+use tauri::Manager;
+use tauri::menu::{MenuBuilder, PredefinedMenuItem, SubmenuBuilder};
 
 fn build_menu(app: &tauri::App) -> tauri::Result<tauri::menu::Menu<tauri::Wry>> {
     let file_menu = SubmenuBuilder::new(app, "File")

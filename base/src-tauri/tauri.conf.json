@@ -33,13 +33,14 @@
       }
     ],
     "security": {
-      "csp": null
+      "csp": "default-src 'self'; connect-src ipc: http://ipc.localhost; img-src 'self' asset: http://asset.localhost data: https://avatars.githubusercontent.com https://*.googleusercontent.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+      "devCsp": "default-src 'self'; connect-src ipc: http://ipc.localhost http://localhost:1420 ws://localhost:1421; img-src 'self' asset: http://asset.localhost data: https://avatars.githubusercontent.com https://*.googleusercontent.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; object-src 'none'"
     }
   },
   "bundle": {
     "active": true,
     "targets": "all",
-    "createUpdaterArtifacts": "v1Compatible",
+    "createUpdaterArtifacts": false,
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
@@ -50,9 +51,7 @@
   },
   "plugins": {
     "updater": {
-      "endpoints": [
-        "https://github.com/{{APP_AUTHOR}}/{{APP_SLUG}}/releases/latest/download/latest.json"
-      ],
+      "endpoints": [],
       "pubkey": ""
     }
   }

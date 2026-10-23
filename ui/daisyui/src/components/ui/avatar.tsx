@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { cn } from "@/lib/utils";
 
 function Avatar({
@@ -23,10 +23,10 @@ function AvatarImage({
   return (
     <div className="w-8 rounded-full">
       <img
-        src={src}
-        alt={alt}
-        className={cn("rounded-full", className)}
         {...props}
+        alt={alt ?? "User avatar"}
+        src={src}
+        className={cn("rounded-full", className)}
       />
     </div>
   );

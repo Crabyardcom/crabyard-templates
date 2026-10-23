@@ -19,20 +19,20 @@ function LinuxControls({
 }) {
   return (
     <div className="flex items-center" data-window-control>
-      <button
-        onClick={onMinimize}
+      <button type="button"
+        aria-label="Minimize window" onClick={onMinimize}
         className="inline-flex h-8 w-9 items-center justify-center text-muted-foreground hover:bg-accent/80 rounded-full transition-colors"
       >
         <Minus className="h-3.5 w-3.5" />
       </button>
-      <button
-        onClick={onToggleMaximize}
+      <button type="button"
+        aria-label={maximized ? "Restore window" : "Maximize window"} onClick={onToggleMaximize}
         className="inline-flex h-8 w-9 items-center justify-center text-muted-foreground hover:bg-accent/80 rounded-full transition-colors"
       >
         {maximized ? <Copy className="h-3 w-3" /> : <Square className="h-3 w-3" />}
       </button>
-      <button
-        onClick={onClose}
+      <button type="button"
+        aria-label="Close window" onClick={onClose}
         className="inline-flex h-8 w-9 items-center justify-center text-muted-foreground hover:bg-destructive hover:text-destructive-foreground rounded-full transition-colors mr-1"
       >
         <X className="h-3.5 w-3.5" />
@@ -54,23 +54,23 @@ function WindowsControls({
 }) {
   return (
     <>
-      <button
+      <button type="button"
         data-window-control
-        onClick={onMinimize}
+        aria-label="Minimize window" onClick={onMinimize}
         className="inline-flex h-8 w-11 items-center justify-center text-muted-foreground hover:bg-accent/80 transition-colors"
       >
         <Minus className="h-3.5 w-3.5" />
       </button>
-      <button
+      <button type="button"
         data-window-control
-        onClick={onToggleMaximize}
+        aria-label={maximized ? "Restore window" : "Maximize window"} onClick={onToggleMaximize}
         className="inline-flex h-8 w-11 items-center justify-center text-muted-foreground hover:bg-accent/80 transition-colors"
       >
         {maximized ? <Copy className="h-3 w-3" /> : <Square className="h-3 w-3" />}
       </button>
-      <button
+      <button type="button"
         data-window-control
-        onClick={onClose}
+        aria-label="Close window" onClick={onClose}
         className="inline-flex h-8 w-11 items-center justify-center text-muted-foreground hover:bg-destructive hover:text-destructive-foreground transition-colors"
       >
         <X className="h-3.5 w-3.5" />
@@ -86,7 +86,7 @@ export function TitleBar() {
 
   useEffect(() => {
     appWindow.isMaximized().then(setMaximized);
-  }, []);
+  }, [appWindow]);
 
   const handleMinimize = () => appWindow.minimize();
   const handleToggleMaximize = async () => {
@@ -105,9 +105,9 @@ export function TitleBar() {
         <span className="flex-1 text-center text-[11px] text-muted-foreground/70 font-medium tracking-tight pointer-events-none">
           {import.meta.env.VITE_APP_NAME}
         </span>
-        <button
+        <button type="button"
           data-window-control
-          onClick={toggleTheme}
+          aria-label="Toggle color theme" onClick={toggleTheme}
           className="inline-flex h-8 w-8 items-center justify-center text-muted-foreground hover:bg-accent/80 rounded-sm transition-colors"
         >
           {theme === "dark" ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
@@ -132,9 +132,9 @@ export function TitleBar() {
         {import.meta.env.VITE_APP_NAME}
       </span>
       <div className="flex-1" />
-      <button
+      <button type="button"
         data-window-control
-        onClick={toggleTheme}
+        aria-label="Toggle color theme" onClick={toggleTheme}
         className="inline-flex h-8 w-8 items-center justify-center text-muted-foreground hover:bg-accent/80 rounded-sm transition-colors"
       >
         {theme === "dark" ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}

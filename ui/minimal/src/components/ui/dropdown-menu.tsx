@@ -24,7 +24,7 @@ function DropdownMenuTrigger({
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean }) {
   const { setOpen, open } = React.useContext(MenuContext);
   return (
-    <button className={cn("cursor-pointer", className)} onClick={() => setOpen(!open)} {...props}>
+    <button type="button" className={cn("cursor-pointer", className)} onClick={() => setOpen(!open)} {...props}>
       {children}
     </button>
   );
@@ -86,10 +86,10 @@ function DropdownMenuItem({
   variant: _variant,
   children,
   ...props
-}: React.HTMLAttributes<HTMLDivElement> & { inset?: boolean; variant?: string }) {
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & { inset?: boolean; variant?: string }) {
   const { setOpen } = React.useContext(MenuContext);
   return (
-    <div
+    <button type="button"
       role="menuitem"
       className={cn(
         "flex cursor-pointer select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground",
@@ -102,7 +102,7 @@ function DropdownMenuItem({
       {...props}
     >
       {children}
-    </div>
+    </button>
   );
 }
 
@@ -111,11 +111,11 @@ function DropdownMenuCheckboxItem({
   children,
   checked,
   ...props
-}: React.HTMLAttributes<HTMLDivElement> & { checked?: boolean }) {
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & { checked?: boolean }) {
   return (
-    <div
+    <button type="button"
       role="menuitemcheckbox"
-      aria-checked={checked}
+      aria-checked={checked ?? false}
       className={cn(
         "flex cursor-pointer select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground",
         checked && "bg-accent/50",
@@ -124,7 +124,7 @@ function DropdownMenuCheckboxItem({
       {...props}
     >
       {children}
-    </div>
+    </button>
   );
 }
 
@@ -136,10 +136,11 @@ function DropdownMenuRadioItem({
   className,
   children,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
-    <div
+    <button type="button"
       role="menuitemradio"
+      aria-checked={props["aria-checked"] ?? false}
       className={cn(
         "flex cursor-pointer select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground",
         className
@@ -147,7 +148,7 @@ function DropdownMenuRadioItem({
       {...props}
     >
       {children}
-    </div>
+    </button>
   );
 }
 

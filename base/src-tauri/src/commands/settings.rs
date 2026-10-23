@@ -13,11 +13,7 @@ pub fn load_settings(app: &AppHandle) -> AppResult<AppSettings> {
         .store(STORE_FILE)
         .map_err(|e| AppError::Other(e.to_string()))?;
     match store.get(SETTINGS_KEY) {
-        Some(val) => {
-            let settings: AppSettings =
-                serde_json::from_value(val).unwrap_or_default();
-            Ok(settings)
-        }
+        Some(val) => serde_json::from_value(val).map_err(|e| AppError::Other(e.to_string())),
         None => Ok(AppSettings::default()),
     }
 }
@@ -26,9 +22,9 @@ pub fn save_settings(app: &AppHandle, settings: &AppSettings) -> AppResult<()> {
     let store = app
         .store(STORE_FILE)
         .map_err(|e| AppError::Other(e.to_string()))?;
-    let val = serde_json::to_value(settings)
-        .map_err(|e| AppError::Other(e.to_string()))?;
+    let val = serde_json::to_value(settings).map_err(|e| AppError::Other(e.to_string()))?;
     store.set(SETTINGS_KEY, val);
+    store.save().map_err(|e| AppError::Other(e.to_string()))?;
     Ok(())
 }
 
@@ -44,7 +40,7 @@ pub async fn set_settings(app: AppHandle, settings: AppSettings) -> AppResult<()
 
 #[tauri::command]
 pub async fn select_workspace_folder(app: AppHandle) -> AppResult<Option<String>> {
-    let (tx, rx) = std::sync::mpsc::channel();
+    let (tx, rx) = tokio::sync::oneshot::channel();
     app.dialog()
         .file()
         .set_title("Select Workspace Folder")
@@ -53,7 +49,7 @@ pub async fn select_workspace_folder(app: AppHandle) -> AppResult<Option<String>
             let _ = tx.send(path);
         });
     let result = rx
-        .recv()
+        .await
         .map_err(|_| AppError::Other("Dialog cancelled".into()))?;
     Ok(result)
 }

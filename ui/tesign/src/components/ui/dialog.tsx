@@ -41,7 +41,7 @@ function DialogTrigger({
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean }) {
   const { setOpen } = React.useContext(DialogContext);
   return (
-    <button onClick={() => setOpen(true)} {...props}>
+    <button type="button" onClick={() => setOpen(true)} {...props}>
       {children}
     </button>
   );
@@ -58,7 +58,7 @@ function DialogClose({
 }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   const { setOpen } = React.useContext(DialogContext);
   return (
-    <button className={className} onClick={() => setOpen(false)} {...props}>
+    <button type="button" className={className} onClick={() => setOpen(false)} {...props}>
       {children}
     </button>
   );
@@ -78,9 +78,9 @@ function DialogContent({
   children,
   showCloseButton = true,
   ...props
-}: React.HTMLAttributes<HTMLDivElement> & { showCloseButton?: boolean }) {
+}: React.DialogHTMLAttributes<HTMLDialogElement> & { showCloseButton?: boolean }) {
   const { open, setOpen } = React.useContext(DialogContext);
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -91,11 +91,12 @@ function DialogContent({
 
     document.addEventListener("keydown", handleEscape);
     document.body.style.overflow = "hidden";
-    ref.current?.focus();
+    ref.current?.showModal();
 
     return () => {
       document.removeEventListener("keydown", handleEscape);
       document.body.style.overflow = "";
+      ref.current?.close();
     };
   }, [open, setOpen]);
 
@@ -103,14 +104,14 @@ function DialogContent({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div
+      <button type="button" aria-label="Close dialog"
         className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-sheet-fade-in"
         onClick={() => setOpen(false)}
-        aria-hidden="true"
+        tabIndex={-1}
       />
-      <div
+      <dialog
         ref={ref}
-        role="dialog"
+        onCancel={() => setOpen(false)}
         aria-modal="true"
         tabIndex={-1}
         className={cn(
@@ -121,7 +122,7 @@ function DialogContent({
       >
         {children}
         {showCloseButton && (
-          <button
+          <button type="button"
             className="absolute top-4 right-4 rounded-md p-1.5 text-muted-foreground opacity-70 transition-opacity hover:opacity-100"
             onClick={() => setOpen(false)}
           >
@@ -129,7 +130,7 @@ function DialogContent({
             <span className="sr-only">Close</span>
           </button>
         )}
-      </div>
+      </dialog>
     </div>
   );
 }

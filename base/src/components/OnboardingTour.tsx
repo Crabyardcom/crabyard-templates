@@ -95,9 +95,9 @@ export function OnboardingTour({
         </DialogHeader>
         <div className="flex items-center justify-between pt-4">
           <div className="flex items-center gap-1.5">
-            {steps.map((_, i) => (
+            {steps.map((item, i) => (
               <div
-                key={i}
+                key={item.title}
                 className={`h-1.5 rounded-full transition-all ${
                   i === current
                     ? "w-4 bg-primary"

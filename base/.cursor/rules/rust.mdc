@@ -1,0 +1,7 @@
+---
+description: Rust commands, persistence, and Tauri permissions
+globs: src-tauri/**/*.rs,src-tauri/**/*.toml,src-tauri/**/*.json
+alwaysApply: false
+---
+
+Return AppResult<T> from commands. Register commands and update CommandMap and mirrored models together. Keep mutex guards out of async I/O. Never put credentials in frontend code or disable CSP. Run cargo fmt --check, cargo clippy --all-targets -- -D warnings, and cargo test using src-tauri/Cargo.toml.

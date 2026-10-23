@@ -43,7 +43,10 @@ export function useUpdater() {
     setState((s) => ({ ...s, downloading: true, error: null }));
     try {
       const update = await check();
-      if (!update) return;
+      if (!update) {
+        setState(initial);
+        return;
+      }
 
       let total = 0;
       let downloaded = 0;
@@ -79,7 +82,7 @@ export function useUpdater() {
   }, []);
 
   useEffect(() => {
-    if (import.meta.env.PROD) {
+    if (import.meta.env.PROD && import.meta.env.VITE_UPDATER_ENABLED === "true") {
       checkForUpdate();
     }
   }, [checkForUpdate]);

@@ -25,10 +25,12 @@ export function useKeyboardShortcut({
 
     function onKeyDown(e: KeyboardEvent) {
       if (e.key.toLowerCase() !== key.toLowerCase()) return;
-      if (modifiers.includes("ctrl") !== (e.ctrlKey || e.metaKey)) return;
+      const primary = modifiers.includes("ctrl");
+      const meta = modifiers.includes("meta");
+      if (primary ? !e.ctrlKey && !e.metaKey : e.ctrlKey) return;
       if (modifiers.includes("shift") !== e.shiftKey) return;
       if (modifiers.includes("alt") !== e.altKey) return;
-      if (modifiers.includes("meta") !== e.metaKey) return;
+      if (meta ? !e.metaKey : !primary && e.metaKey) return;
 
       if (preventDefault) e.preventDefault();
       handlerRef.current(e);

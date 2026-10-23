@@ -24,7 +24,7 @@ function DropdownMenuTrigger({
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean }) {
   const { setOpen, open } = React.useContext(MenuContext);
   return (
-    <button
+    <button type="button"
       tabIndex={0}
       className={className}
       onClick={() => setOpen(!open)}
@@ -66,7 +66,6 @@ function DropdownMenuContent({
   return (
     <ul
       ref={ref}
-      tabIndex={0}
       className={cn(
         "menu dropdown-content z-50 rounded-box bg-base-200 p-2 shadow-lg",
         className
@@ -91,19 +90,19 @@ function DropdownMenuItem({
   inset: _inset,
   variant: _variant,
   ...props
-}: React.LiHTMLAttributes<HTMLLIElement> & { inset?: boolean; variant?: string }) {
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & { inset?: boolean; variant?: string }) {
   const { setOpen } = React.useContext(MenuContext);
   return (
     <li>
-      <a
+      <button type="button"
         className={cn("text-sm", className)}
         onClick={(e) => {
-          (props as React.HTMLAttributes<HTMLLIElement>).onClick?.(e as unknown as React.MouseEvent<HTMLLIElement>);
+          props.onClick?.(e);
           setOpen(false);
         }}
       >
         {props.children}
-      </a>
+      </button>
     </li>
   );
 }
@@ -113,12 +112,12 @@ function DropdownMenuCheckboxItem({
   children,
   checked,
   ...props
-}: React.LiHTMLAttributes<HTMLLIElement> & { checked?: boolean }) {
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & { checked?: boolean }) {
   return (
     <li>
-      <a className={cn("text-sm", checked && "active", className)} {...(props as React.HTMLAttributes<HTMLElement>)}>
+      <button type="button" className={cn("text-sm", checked && "active", className)} {...props}>
         {children}
-      </a>
+      </button>
     </li>
   );
 }
@@ -131,12 +130,12 @@ function DropdownMenuRadioItem({
   className,
   children,
   ...props
-}: React.LiHTMLAttributes<HTMLLIElement>) {
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <li>
-      <a className={cn("text-sm", className)} {...(props as React.HTMLAttributes<HTMLElement>)}>
+      <button type="button" className={cn("text-sm", className)} {...props}>
         {children}
-      </a>
+      </button>
     </li>
   );
 }

@@ -1,0 +1,6 @@
+---
+description: Project contract for {{APP_NAME}}
+alwaysApply: true
+---
+
+Read @AGENTS.md. Auth is `{{AUTH_MODULE}}`, UI is `{{UI_MODULE}}`, package manager is `{{PACKAGE_MANAGER}}`. Follow the actual generated architecture. Default to no implementation comments. Verify changed behavior using the documented checks.

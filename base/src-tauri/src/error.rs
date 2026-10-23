@@ -3,7 +3,6 @@ use serde::Serialize;
 #[derive(Debug, thiserror::Error)]
 pub enum AppError {
     // CRABYARD:AUTH_ERRORS
-
     #[error("IO error: {0}")]
     Io(#[from] std::io::Error),
 

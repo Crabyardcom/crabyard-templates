@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { useAppStore } from "@/store/appStore";
 import * as api from "@/lib/tauri";
 import type { AppSettings } from "@/lib/types";
+import { toast } from "sonner";
 
 export function useSettings() {
   const { settings, settingsLoading, setSettings, setSettingsLoading } =
@@ -12,8 +13,9 @@ export function useSettings() {
     try {
       const s = await api.getSettings();
       setSettings(s);
-    } catch {
-      // use defaults
+    } catch (error) {
+      console.error("Failed to load settings:", error);
+      toast.error("Could not load your preferences. Try again before changing settings.");
     } finally {
       setSettingsLoading(false);
     }
@@ -21,22 +23,28 @@ export function useSettings() {
 
   const updateSettings = useCallback(
     async (partial: Partial<AppSettings>) => {
-      const updated = { ...settings, ...partial };
+      const previous = useAppStore.getState().settings;
+      const updated = { ...previous, ...partial };
       setSettings(updated);
       try {
         await api.setSettings(updated);
+        return true;
       } catch (e) {
+        if (useAppStore.getState().settings === updated) setSettings(previous);
         console.error("Failed to save settings:", e);
+        toast.error("Your preferences could not be saved. Please try again.");
+        return false;
       }
     },
-    [settings, setSettings]
+    [setSettings]
   );
 
   const pickFolder = useCallback(async () => {
     try {
       const folder = await api.selectWorkspaceFolder();
       if (folder) {
-        await updateSettings({ workspaceRoot: folder });
+        const saved = await updateSettings({ workspaceRoot: folder });
+        if (!saved) return null;
       }
       return folder;
     } catch (e) {

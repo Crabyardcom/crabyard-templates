@@ -1,0 +1,7 @@
+---
+description: React UI and typed desktop IPC
+globs: src/**/*.ts,src/**/*.tsx,src/**/*.css
+alwaysApply: false
+---
+
+Use strict TypeScript, @/ imports, existing UI primitives, and theme tokens. Native behavior goes through typed wrappers in src/lib/tauri.ts. Implement loading, error, empty, and success states with accessible keyboard controls. Run {{PM_RUN}} check.

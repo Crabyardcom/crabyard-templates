@@ -41,7 +41,7 @@ function DialogTrigger({
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean }) {
   const { setOpen } = React.useContext(DialogContext);
   return (
-    <button onClick={() => setOpen(true)} {...props}>
+    <button type="button" onClick={() => setOpen(true)} {...props}>
       {children}
     </button>
   );
@@ -58,7 +58,7 @@ function DialogClose({
 }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   const { setOpen } = React.useContext(DialogContext);
   return (
-    <button className={className} onClick={() => setOpen(false)} {...props}>
+    <button type="button" className={className} onClick={() => setOpen(false)} {...props}>
       {children}
     </button>
   );
@@ -94,7 +94,7 @@ function DialogContent({
       <div className={cn("modal-box", className)} {...props}>
         {children}
         {showCloseButton && (
-          <button
+          <button type="button"
             className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
             onClick={() => setOpen(false)}
           >

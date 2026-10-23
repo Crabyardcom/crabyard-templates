@@ -25,13 +25,13 @@ export function UpdateBanner() {
           </p>
           {error && <p className="text-xs text-red-400 mt-1">{error}</p>}
           <div className="flex gap-2 mt-3">
-            <button
+            <button type="button"
               onClick={installUpdate}
               className="bg-orange-600 hover:bg-orange-500 text-white text-xs px-3 py-1.5 rounded-lg font-medium transition cursor-pointer"
             >
               Update now
             </button>
-            <button
+            <button type="button"
               onClick={dismiss}
               className="text-zinc-400 hover:text-white text-xs px-3 py-1.5 transition cursor-pointer"
             >

@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { cn } from "@/lib/utils";
 
 function Separator({
@@ -10,8 +10,7 @@ function Separator({
   decorative?: boolean;
 }) {
   return (
-    <div
-      role="separator"
+    <div aria-hidden="true"
       className={cn(
         "divider",
         orientation === "vertical" ? "divider-horizontal" : "",

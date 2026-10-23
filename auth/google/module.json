@@ -9,13 +9,14 @@
     "CRABYARD:AUTH_STATE_DEFAULTS": "auth_token: None,\n            username: None,\n            avatar_url: None,\n            http_client: reqwest::Client::builder()\n                .user_agent(\"{{APP_SLUG}}\")\n                .build()\n                .expect(\"failed to build http client\"),",
     "CRABYARD:AUTH_TYPES": "export interface AuthStatus {\n  authenticated: boolean;\n  username: string | null;\n  avatarUrl: string | null;\n}",
     "CRABYARD:AUTH_IMPORTS": "import type { AuthStatus } from \"./types\";",
-    "CRABYARD:AUTH_COMMANDS": "// ─── Auth commands ─────────────────────────────────────────────────────────\n\nexport async function login(): Promise<string> {\n  return invoke(\"login\");\n}\n\nexport async function getAuthStatus(): Promise<AuthStatus> {\n  return invoke(\"get_auth_status\");\n}\n\nexport async function restoreAuth(): Promise<AuthStatus> {\n  return invoke(\"restore_auth\");\n}\n\nexport async function logout(): Promise<void> {\n  return invoke(\"logout\");\n}",
+    "CRABYARD:AUTH_COMMANDS": "export async function login(): Promise<string> {\n  return invokeCommand(\"login\");\n}\n\nexport async function getAuthStatus(): Promise<AuthStatus> {\n  return invokeCommand(\"get_auth_status\");\n}\n\nexport async function restoreAuth(): Promise<AuthStatus> {\n  return invokeCommand(\"restore_auth\");\n}\n\nexport async function logout(): Promise<void> {\n  return invokeCommand(\"logout\");\n}",
     "CRABYARD:STORE_AUTH_IMPORT": "import type { AuthStatus } from \"@/lib/types\";",
     "CRABYARD:STORE_AUTH_STATE": "auth: AuthStatus;\n  authLoading: boolean;\n",
     "CRABYARD:STORE_AUTH_SETTERS": "setAuth: (auth: AuthStatus) => void;\n  setAuthLoading: (loading: boolean) => void;",
     "CRABYARD:STORE_AUTH_DEFAULTS": "auth: { authenticated: false, username: null, avatarUrl: null },\n  authLoading: true,\n",
     "CRABYARD:STORE_AUTH_SETTER_IMPLS": "setAuth: (auth) => set({ auth }),\n  setAuthLoading: (authLoading) => set({ authLoading }),",
-    "CRABYARD:CARGO_DEPS": "rand = { version = \"0.9\" }\nsha2 = \"0.10\"\nbase64 = \"0.22\"\nurl = \"2\""
+    "CRABYARD:CARGO_DEPS": "rand = { version = \"0.9\" }\nsha2 = \"0.10\"\nbase64 = \"0.22\"\nurl = \"2\"",
+    "CRABYARD:COMMAND_TYPES": "login: [undefined, string];\n  logout: [undefined, undefined];\n  get_auth_status: [undefined, AuthStatus];\n  restore_auth: [undefined, AuthStatus];"
   },
   "npm_dev_dependencies": {
     "lucide-react": "^0.577.0"

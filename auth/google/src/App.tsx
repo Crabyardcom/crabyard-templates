@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     restore();
     loadSettings();
-  }, []);
+  }, [loadSettings, restore]);
 
   if (authLoading) {
     return (

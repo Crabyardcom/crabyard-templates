@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { cn } from "@/lib/utils";
 
 function Avatar({ className, ...props }: React.HTMLAttributes<HTMLDivElement> & { size?: string }) {
@@ -13,10 +13,10 @@ function Avatar({ className, ...props }: React.HTMLAttributes<HTMLDivElement> & 
 function AvatarImage({ className, src, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) {
   return (
     <img
-      src={src}
-      alt={alt}
-      className={cn("aspect-square size-full rounded-full", className)}
       {...props}
+      alt={alt ?? "User avatar"}
+      src={src}
+      className={cn("aspect-square size-full rounded-full", className)}
     />
   );
 }

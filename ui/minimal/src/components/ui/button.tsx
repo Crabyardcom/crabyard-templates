@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { cn } from "@/lib/utils";
 
 const variants: Record<string, string> = {
@@ -26,7 +26,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 function Button({ className, variant = "default", size = "default", asChild: _asChild, ...props }: ButtonProps) {
   return (
-    <button
+    <button type="button"
       className={cn(
         "inline-flex items-center justify-center gap-2 rounded-md font-medium whitespace-nowrap transition-colors disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         variants[variant],

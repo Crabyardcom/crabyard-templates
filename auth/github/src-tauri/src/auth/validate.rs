@@ -10,10 +10,7 @@ struct GitHubUser {
 
 /// Validate a GitHub token and return (username, avatar_url).
 /// Called on startup to restore auth state from a stored token.
-pub async fn fetch_github_user(
-    http: &reqwest::Client,
-    token: &str,
-) -> AppResult<(String, String)> {
+pub async fn fetch_github_user(http: &reqwest::Client, token: &str) -> AppResult<(String, String)> {
     let resp = http
         .get("https://api.github.com/user")
         .bearer_auth(token)
@@ -28,7 +25,7 @@ pub async fn fetch_github_user(
         code => {
             return Err(AppError::AuthProvider(format!(
                 "GitHub API returned HTTP {code}"
-            )))
+            )));
         }
     }
 

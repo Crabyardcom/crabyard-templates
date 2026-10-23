@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { cn } from "@/lib/utils";
 
 const variantClass: Record<string, string> = {
@@ -40,7 +40,7 @@ function Button({
   ...props
 }: ButtonProps) {
   return (
-    <button
+    <button type="button"
       data-variant={variant}
       data-size={size}
       className={cn(

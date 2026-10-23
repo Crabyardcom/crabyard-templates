@@ -4,9 +4,9 @@ import type { AppSettings } from "./types";
 // CRABYARD:AUTH_IMPORTS
 
 type CommandMap = {
-  get_settings: [void, AppSettings];
-  set_settings: [{ settings: AppSettings }, void];
-  select_workspace_folder: [void, string | null];
+  get_settings: [undefined, AppSettings];
+  set_settings: [{ settings: AppSettings }, undefined];
+  select_workspace_folder: [undefined, string | null];
   // CRABYARD:COMMAND_TYPES
 };
 
