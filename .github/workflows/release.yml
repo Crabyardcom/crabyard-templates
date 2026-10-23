@@ -14,7 +14,8 @@ jobs:
           TAG: ${{ github.ref_name }}
         run: |
           version="${TAG#v}"
-          test "$version" = "$(sed -n 's/^version = "\([^"]*\)"/\1/p' manifest.toml | head -1)"
+          template_version="$(python3 -c 'import tomllib; print(tomllib.load(open("manifest.toml", "rb"))["template"]["version"])')"
+          test "$version" = "$template_version"
           tar -czf "crabyard-$version.tar.gz" --exclude=node_modules --exclude=target --exclude=.git --exclude=dist base auth ui manifest.toml
           sha256sum "crabyard-$version.tar.gz" > "crabyard-$version.tar.gz.sha256"
       - name: Upload licensed template
