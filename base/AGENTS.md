@@ -141,7 +141,7 @@ If the command exchanges structured data, add the Rust type in `src-tauri/src/mo
 
 When asked to build a feature:
 
-Read `docs/PROJECT.md`, the selected brief in `docs/tasks/`, and `docs/HANDOFF.md` first. Replace bracketed product decisions with concrete requirements. Keep the handoff current with verified results and the next task. `crabyard context --brief "..."` creates a separate context packet for a fresh coding session.
+If `docs/AI_CONTEXT.md` exists, read it before substantial work, then read `docs/PROJECT.md`, the selected brief in `docs/tasks/`, and `docs/HANDOFF.md`. Carry the supplied goal into `PROJECT.md`. Replace bracketed prompts with concrete requirements or reasonable, explicitly stated assumptions; ask only about decisions that materially block the workflow. Keep the handoff current with verified results and the next task. `crabyard context --brief "..."` creates a separate context packet for a fresh coding session.
 
 1. Identify the user-facing flow and replace scaffold placeholder UI in `DashboardView.tsx` or add a focused view component.
 2. Define shared data models in Rust and TypeScript when data crosses IPC.

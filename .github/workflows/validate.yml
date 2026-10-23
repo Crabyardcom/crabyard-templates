@@ -36,6 +36,8 @@ jobs:
         run: cargo run --locked --manifest-path cli/Cargo.toml -- new "Matrix App" --auth "$AUTH" --ui "$UI" --pm bun --template templates --output generated --yes --no-install --no-git
       - run: bun install
         working-directory: generated
+      - run: bun audit --audit-level=high
+        working-directory: generated
       - run: bun run check
         working-directory: generated
   desktop:
