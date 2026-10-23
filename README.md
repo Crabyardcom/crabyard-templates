@@ -23,6 +23,8 @@ npm run tauri dev
 
 The source contains placeholders and overlay markers. Validate generated applications, not the unexpanded source. The repository workflow checks all twelve auth/UI combinations and Rust compilation across Linux, macOS, and Windows.
 
+Authenticated apps store tokens in Windows Credential Manager, macOS Keychain, or Linux Secret Service. There is no plaintext credential fallback. Existing plaintext `auth.json` credentials are discarded and require a fresh sign-in. Unit tests exercise credential roundtrips, refresh-token preservation, and unavailable-vault errors without touching real vaults.
+
 ## Publishing
 
 Keep the template version compatible with the consuming CLI version. A `v*` tag packages `base/`, `auth/`, `ui/`, and `manifest.toml` and uploads the archive to the license API. Configure the repository secret `ADMIN_KEY` and optional repository variable `API_URL`. CLI binaries release independently from `crabyard-cli`.

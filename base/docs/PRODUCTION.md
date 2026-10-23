@@ -10,7 +10,11 @@ Remove developer onboarding, demo links, and placeholder screens. Verify first l
 
 Use an OAuth application of the correct desktop/public-client type. Client IDs may be distributed; client secrets must never be embedded in a desktop app. Development reads `.env`; release binaries do not ship that file. Provide public client IDs through a deliberate release configuration and verify login on an installed build.
 
-The starter auth overlays persist tokens in a local JSON store. Replace that store with the operating system credential manager or a suitable encrypted vault before distributing an authenticated product. Do not describe the starter store as encrypted or secure credential storage. Review token refresh/revocation and account switching requirements for your provider.
+OAuth credentials use Windows Credential Manager, macOS Keychain, or the Linux desktop Secret Service through [keyring's native desktop backends](https://docs.rs/keyring/4.2.0/keyring/v1/index.html). Linux users need an available, unlocked Secret Service in their graphical session. Vault access runs on a blocking worker; unavailable or locked vaults return errors, and there is no plaintext fallback.
+
+The application bundle identifier is the vault service, with a separate entry per OAuth provider. Access and optional refresh tokens are saved together. If a provider omits a new refresh token, the existing refresh token is retained. Changing the bundle identifier creates a new credential namespace.
+
+Existing `auth.json` files are deleted without reading or importing their contents; users upgrading from an older scaffold must sign in again. Review provider-specific token renewal, revocation, and account-switching workflows before release. The included unit tests use an in-memory credential boundary and never access developers' real vaults.
 
 ## Updates
 

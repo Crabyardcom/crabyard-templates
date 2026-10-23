@@ -166,7 +166,8 @@ When asked to build a feature:
 - Backend-only secrets must not use the `VITE_` prefix.
 - Do not hardcode tokens, OAuth secrets, API keys, or filesystem-specific paths in frontend code.
 - OAuth client IDs are public identifiers. Never embed client secrets in a desktop binary.
-- The starter auth overlays use a local JSON token store; replace it with an OS credential manager or encrypted vault before distributing an authenticated product.
+- OAuth tokens stay in the operating system credential vault through `src-tauri/src/credentials.rs`. Keep vault work on the blocking pool, preserve omitted refresh tokens, and propagate vault errors. Never add a plaintext fallback or return tokens through IPC.
+- Vault entries use the app bundle identifier and provider. Legacy `auth.json` is deleted without importing it, requiring a fresh sign-in for existing installations.
 
 ## Commands
 

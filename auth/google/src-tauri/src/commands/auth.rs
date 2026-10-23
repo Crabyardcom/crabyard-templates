@@ -46,7 +46,12 @@ pub async fn login(app: AppHandle) -> AppResult<String> {
             }
         };
 
-        let _ = token_store::save(&app, &tokens.access_token, tokens.refresh_token.as_deref());
+        if let Err(error) =
+            token_store::save(&app, &tokens.access_token, tokens.refresh_token.as_deref()).await
+        {
+            eprintln!("Credential storage failed: {error}");
+            return;
+        }
 
         let mut st = state_mutex.lock().unwrap();
         st.auth_token = Some(tokens.access_token);
@@ -70,7 +75,7 @@ pub async fn get_auth_status(app: AppHandle) -> AppResult<AuthStatus> {
 
 #[tauri::command]
 pub async fn restore_auth(app: AppHandle) -> AppResult<AuthStatus> {
-    let token = match token_store::load(&app)? {
+    let token = match token_store::load(&app).await? {
         Some(t) => t,
         None => return Ok(AuthStatus::unauthenticated()),
     };
@@ -94,7 +99,7 @@ pub async fn restore_auth(app: AppHandle) -> AppResult<AuthStatus> {
             })
         }
         Err(_) => {
-            let _ = token_store::remove(&app);
+            token_store::remove(&app).await?;
             Ok(AuthStatus::unauthenticated())
         }
     }
@@ -102,7 +107,7 @@ pub async fn restore_auth(app: AppHandle) -> AppResult<AuthStatus> {
 
 #[tauri::command]
 pub async fn logout(app: AppHandle) -> AppResult<()> {
-    token_store::remove(&app)?;
+    token_store::remove(&app).await?;
     let state = app.state::<Mutex<AppState>>();
     let mut st = state.lock().unwrap();
     st.auth_token = None;

@@ -81,10 +81,10 @@ pub async fn poll_for_token(
 
         let body: TokenResponse = resp.json().await?;
 
-        if let Some(token) = body.access_token {
-            if !token.is_empty() {
-                return Ok(token);
-            }
+        if let Some(token) = body.access_token
+            && !token.is_empty()
+        {
+            return Ok(token);
         }
 
         match body.error.as_deref() {

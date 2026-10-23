@@ -1,5 +1,6 @@
 // CRABYARD:MOD_AUTH
 mod commands;
+// CRABYARD:MOD_CREDENTIALS
 mod error;
 mod models;
 mod state;

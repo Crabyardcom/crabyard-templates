@@ -32,7 +32,7 @@ pub async fn poll_auth(
     let token = device_flow::poll_for_token(&http, &device_code, interval).await?;
     let (username, avatar_url) = validate::fetch_github_user(&http, &token).await?;
 
-    token_store::save(&app, &token)?;
+    token_store::save(&app, &token).await?;
 
     {
         let mut s = state.lock().unwrap();
@@ -50,7 +50,7 @@ pub async fn poll_auth(
 
 #[tauri::command]
 pub async fn logout(app: AppHandle) -> AppResult<()> {
-    token_store::remove(&app)?;
+    token_store::remove(&app).await?;
 
     let state = app.state::<Mutex<AppState>>();
     let mut s = state.lock().unwrap();
@@ -73,7 +73,7 @@ pub async fn get_auth_status(app: AppHandle) -> AppResult<AuthStatus> {
 
 #[tauri::command]
 pub async fn restore_auth(app: AppHandle) -> AppResult<AuthStatus> {
-    let token = match token_store::load(&app)? {
+    let token = match token_store::load(&app).await? {
         Some(t) if !t.is_empty() => t,
         _ => return Ok(AuthStatus::unauthenticated()),
     };
@@ -97,7 +97,7 @@ pub async fn restore_auth(app: AppHandle) -> AppResult<AuthStatus> {
             })
         }
         Err(_) => {
-            token_store::remove(&app)?;
+            token_store::remove(&app).await?;
             Ok(AuthStatus::unauthenticated())
         }
     }
