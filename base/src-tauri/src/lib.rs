@@ -3,6 +3,7 @@ mod commands;
 // CRABYARD:MOD_CREDENTIALS
 mod error;
 mod models;
+// CRABYARD:MOD_PUBLIC_CONFIG
 mod state;
 
 use std::sync::Mutex;
@@ -69,6 +70,7 @@ pub fn run() {
         })
         .setup(|app| {
             app.manage(Mutex::new(AppState::default()));
+            app.manage(commands::documents::DocumentState::default());
 
             let menu = build_menu(app)?;
             app.set_menu(menu)?;
@@ -77,6 +79,9 @@ pub fn run() {
         })
         .invoke_handler(tauri::generate_handler![
             // CRABYARD:COMMANDS
+            commands::documents::get_local_document,
+            commands::documents::put_local_document,
+            commands::documents::delete_local_document,
             commands::settings::get_settings,
             commands::settings::set_settings,
             commands::settings::select_workspace_folder,

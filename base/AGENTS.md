@@ -141,6 +141,8 @@ If the command exchanges structured data, add the Rust type in `src-tauri/src/mo
 
 When asked to build a feature:
 
+Read `docs/PROJECT.md`, the selected brief in `docs/tasks/`, and `docs/HANDOFF.md` first. Replace bracketed product decisions with concrete requirements. Keep the handoff current with verified results and the next task. `crabyard context --brief "..."` creates a separate context packet for a fresh coding session.
+
 1. Identify the user-facing flow and replace scaffold placeholder UI in `DashboardView.tsx` or add a focused view component.
 2. Define shared data models in Rust and TypeScript when data crosses IPC.
 3. Add backend commands for native work, persistence, HTTP, or filesystem access.
@@ -166,6 +168,7 @@ When asked to build a feature:
 - Backend-only secrets must not use the `VITE_` prefix.
 - Do not hardcode tokens, OAuth secrets, API keys, or filesystem-specific paths in frontend code.
 - OAuth client IDs are public identifiers. Never embed client secrets in a desktop binary.
+- Release builds embed only `GITHUB_CLIENT_ID` or `GOOGLE_CLIENT_ID` from the build environment. Keep the runtime override and embedded fallback in sync; never add client secrets to the build allowlist.
 - OAuth tokens stay in the operating system credential vault through `src-tauri/src/credentials.rs`. Keep vault work on the blocking pool, preserve omitted refresh tokens, and propagate vault errors. Never add a plaintext fallback or return tokens through IPC.
 - Vault entries use the app bundle identifier and provider. Legacy `auth.json` is deleted without importing it, requiring a fresh sign-in for existing installations.
 

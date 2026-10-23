@@ -22,3 +22,5 @@ Authentication is `{{AUTH_MODULE}}`. With `none`, auth modules and login state a
 UI is `{{UI_MODULE}}`. Components share a small interface across overlays but are not interchangeable with every upstream library API. Inspect local exports before using a primitive.
 
 Auto-update integration is installed but disabled. Production builds work without update signing credentials; enable updates only after following `PRODUCTION.md`.
+
+Local product data uses `src-tauri/src/commands/documents.rs` and typed wrappers in `src/lib/tauri.ts`. See `LOCAL-DATA.md` for revision checks, atomic writes, limits, and migration requirements. The browser-only development preview mocks native APIs and is excluded from production bundles.

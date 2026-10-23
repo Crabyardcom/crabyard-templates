@@ -17,7 +17,8 @@
     "CRABYARD:STORE_AUTH_SETTER_IMPLS": "setAuth: (auth) => set({ auth }),\n  setAuthLoading: (authLoading) => set({ authLoading }),",
     "CRABYARD:CARGO_DEPS": "rand = { version = \"0.9\" }\nsha2 = \"0.10\"\nbase64 = \"0.22\"\nurl = \"2\"\nkeyring = { version = \"4.2\", default-features = false, features = [\"v1\"] }",
     "CRABYARD:COMMAND_TYPES": "login: [undefined, string];\n  logout: [undefined, undefined];\n  get_auth_status: [undefined, AuthStatus];\n  restore_auth: [undefined, AuthStatus];",
-    "CRABYARD:MOD_CREDENTIALS": "mod credentials;"
+    "CRABYARD:MOD_CREDENTIALS": "mod credentials;",
+    "CRABYARD:MOD_PUBLIC_CONFIG": "mod public_config;"
   },
   "npm_dev_dependencies": {
     "lucide-react": "^0.577.0"

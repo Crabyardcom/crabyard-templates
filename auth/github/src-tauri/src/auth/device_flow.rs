@@ -3,24 +3,17 @@ use serde::Deserialize;
 use crate::error::{AppError, AppResult};
 use crate::models::auth::DeviceCodeResponse;
 
-// GitHub Device Flow endpoints
 const DEVICE_CODE_URL: &str = "https://github.com/login/device/code";
 const ACCESS_TOKEN_URL: &str = "https://github.com/login/oauth/access_token";
 
-/// Returns the GitHub OAuth Client ID from the environment.
-/// Set GITHUB_CLIENT_ID in your .env file (development) or system environment (production).
-/// Create a GitHub OAuth App at: https://github.com/settings/developers
 fn github_client_id() -> AppResult<String> {
-    let id = std::env::var("GITHUB_CLIENT_ID").unwrap_or_default();
-    if id.is_empty() || id.starts_with("your_") {
-        return Err(AppError::Other(
-            "GITHUB_CLIENT_ID is not configured. \
-             Create a GitHub OAuth App at https://github.com/settings/developers \
-             and set the Client ID in your .env file."
-                .into(),
-        ));
-    }
-    Ok(id)
+    let runtime = std::env::var("GITHUB_CLIENT_ID").ok();
+    crate::public_config::oauth_client_id(runtime.as_deref(), option_env!("GITHUB_CLIENT_ID"))
+        .ok_or_else(|| {
+            AppError::AuthProvider(
+                "Configure a GitHub OAuth public client ID before signing in".into(),
+            )
+        })
 }
 
 pub async fn start_device_flow(

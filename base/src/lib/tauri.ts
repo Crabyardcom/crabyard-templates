@@ -1,9 +1,12 @@
 import { invoke } from "@tauri-apps/api/core";
-import type { AppSettings } from "./types";
+import type { AppSettings, JsonValue, LocalDocument } from "./types";
 
 // CRABYARD:AUTH_IMPORTS
 
 type CommandMap = {
+  get_local_document: [{ name: string }, LocalDocument | null];
+  put_local_document: [{ name: string; expectedRevision: number | null; data: JsonValue }, LocalDocument];
+  delete_local_document: [{ name: string; expectedRevision: number }, undefined];
   get_settings: [undefined, AppSettings];
   set_settings: [{ settings: AppSettings }, undefined];
   select_workspace_folder: [undefined, string | null];
@@ -22,6 +25,18 @@ export function invokeCommand<T extends CommandName>(
 }
 
 // CRABYARD:AUTH_COMMANDS
+
+export function getLocalDocument(name: string): Promise<LocalDocument | null> {
+  return invokeCommand("get_local_document", { name });
+}
+
+export function putLocalDocument(name: string, expectedRevision: number | null, data: JsonValue): Promise<LocalDocument> {
+  return invokeCommand("put_local_document", { name, expectedRevision, data });
+}
+
+export function deleteLocalDocument(name: string, expectedRevision: number): Promise<void> {
+  return invokeCommand("delete_local_document", { name, expectedRevision });
+}
 
 // ─── Settings commands ──────────────────────────────────────────────────────
 

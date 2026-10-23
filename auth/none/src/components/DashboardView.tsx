@@ -72,7 +72,6 @@ export function DashboardView() {
       <OnboardingTour />
 
       <div className="mx-auto w-full max-w-4xl space-y-8 p-8">
-        {/* Header */}
         <div className="space-y-2">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 border border-primary/20">
@@ -90,8 +89,6 @@ export function DashboardView() {
         </div>
 
         <Separator />
-
-        {/* Quick Start Grid */}
         <div>
           <h2 className="text-sm font-semibold mb-4 text-muted-foreground uppercase tracking-wider">
             Quick Start
@@ -116,8 +113,6 @@ export function DashboardView() {
             ))}
           </div>
         </div>
-
-        {/* Available Features */}
         <div>
           <h2 className="text-sm font-semibold mb-4 text-muted-foreground uppercase tracking-wider">
             Extend Your App
@@ -153,8 +148,6 @@ export function DashboardView() {
             </CardContent>
           </Card>
         </div>
-
-        {/* System Info + Resources */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Card>
             <CardHeader className="pb-3">
@@ -204,7 +197,7 @@ export function DashboardView() {
                 variant="ghost"
                 size="sm"
                 className="w-full justify-start text-xs h-8"
-                onClick={() => openUrl("https://crabyard.com/docs")}
+                onClick={() => openUrl("https://docs.crabyard.com")}
               >
                 Crabyard Documentation
               </Button>
@@ -219,8 +212,6 @@ export function DashboardView() {
             </CardContent>
           </Card>
         </div>
-
-        {/* Footer hint */}
         <p className="text-center text-xs text-muted-foreground pb-4">
           Edit{" "}
           <code className="rounded bg-muted px-1 py-0.5 font-mono text-[10px]">

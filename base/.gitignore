@@ -19,8 +19,11 @@ src-tauri/target
 
 # Environment — NEVER commit .env (it contains secrets)
 .env
-.env.local
-.env.production
+.env.*
+!.env.example
+!.env.*.example
+*.key
+*.p12
 
 # Editor directories
 .vscode/*

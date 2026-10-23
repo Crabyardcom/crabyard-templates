@@ -27,4 +27,8 @@ Commit the generated package-manager lockfile and `src-tauri/Cargo.lock` for rep
 
 Replace `src/components/DashboardView.tsx` and remove the developer onboarding when introducing your own app flow. `src/lib/tauri.ts` is the typed Rust bridge. See [architecture](docs/ARCHITECTURE.md), [production preparation](docs/PRODUCTION.md), and [AI coding workflow](docs/AI-WORKFLOW.md).
 
+Start with `docs/PROJECT.md`, copy `docs/tasks/FEATURE.md` for each feature, and record progress in `docs/HANDOFF.md`. The [local data API](docs/LOCAL-DATA.md) provides versioned documents, stale-write protection, and atomic file replacement.
+
+`{{PM_RUN}} dev` also opens a browser-only frontend preview. Native operations and OAuth are unavailable there; a visible badge identifies the simulated environment. Production bundles exclude the preview harness. Use `{{PM_TAURI_DEV}}` for actual desktop behavior.
+
 `AGENTS.md` is the shared coding contract. Claude Code and Gemini CLI import it; Copilot, Cursor, and Windsurf have scoped adapters. Keep project decisions in those versioned files so a new agent session can continue safely.

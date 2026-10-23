@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         auth: [none, github, google]
-        ui: [minimal, shadcn, daisyui, tesign]
+        ui: [minimal, shadcn, daisyui]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -71,4 +71,6 @@ jobs:
         working-directory: generated
       - run: bun run tauri icon public/crab.svg
         working-directory: generated
+      - run: cargo fmt --manifest-path generated/src-tauri/Cargo.toml --check
+      - run: cargo clippy --manifest-path generated/src-tauri/Cargo.toml --all-targets -- -D warnings
       - run: cargo test --manifest-path generated/src-tauri/Cargo.toml

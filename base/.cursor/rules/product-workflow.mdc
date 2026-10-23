@@ -1,0 +1,7 @@
+---
+description: Build complete product workflows from repository briefs
+globs: docs/PROJECT.md,docs/HANDOFF.md,docs/tasks/**/*.md,src/**/*.tsx
+alwaysApply: false
+---
+
+Read docs/PROJECT.md and the relevant feature brief. Implement one complete acceptance example at a time. Keep native data changes behind typed IPC. Preserve existing data on failed writes and show a reload/retry path for stale revisions. Update docs/HANDOFF.md with checks actually run and unresolved behavior. Do not claim placeholder checkboxes as verified work.

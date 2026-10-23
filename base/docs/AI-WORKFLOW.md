@@ -22,3 +22,5 @@ Record durable decisions in `AGENTS.md` or `docs/ARCHITECTURE.md`. Keep current 
 | Windsurf / Cascade | `AGENTS.md` and `.windsurf/rules/project.md` |
 
 These files provide context and conventions. They do not grant external service access or contain credentials.
+
+Fill in `PROJECT.md`, copy `tasks/FEATURE.md` for one workflow, and maintain `HANDOFF.md` as work is verified. Run `crabyard context --brief "Describe the next workflow"` to assemble a context packet for a new agent session; it preserves these source briefs. Run `crabyard check --strict` before distribution to audit generated project readiness.

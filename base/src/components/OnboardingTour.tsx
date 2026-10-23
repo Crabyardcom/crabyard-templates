@@ -45,7 +45,7 @@ const defaultSteps: Step[] = [
   {
     title: "You're All Set!",
     description:
-      "Replace DashboardView.tsx with your app's real UI. Run your dev server to see changes instantly. Check out the docs at crabyard.com for guides and examples.",
+      "Replace DashboardView.tsx with your app's real UI. Run your dev server to see changes instantly. Check out the docs at docs.crabyard.com for guides and examples.",
   },
 ];
 

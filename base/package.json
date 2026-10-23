@@ -17,8 +17,9 @@
     "lint": "biome lint src/",
     "lint:fix": "biome lint --write src/",
     "format": "biome format --write src/",
-    "check": "tsc --noEmit && tsc --noEmit -p tsconfig.node.json && biome lint src/ && vitest run && vite build",
-    "tauri": "tauri"
+    "check": "tsc --noEmit && tsc --noEmit -p tsconfig.node.json && biome lint src/ && vitest run && node --test scripts/release.test.mjs && vite build",
+    "tauri": "tauri",
+    "test:release": "node --test scripts/release.test.mjs"
   },
   "dependencies": {
     "@tauri-apps/api": "^2",

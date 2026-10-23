@@ -10,8 +10,13 @@ use crate::error::{AppError, AppResult};
 use crate::models::auth::GoogleTokenResponse;
 
 fn google_client_id() -> AppResult<String> {
-    std::env::var("GOOGLE_CLIENT_ID")
-        .map_err(|_| AppError::AuthProvider("GOOGLE_CLIENT_ID not set in .env".into()))
+    let runtime = std::env::var("GOOGLE_CLIENT_ID").ok();
+    crate::public_config::oauth_client_id(runtime.as_deref(), option_env!("GOOGLE_CLIENT_ID"))
+        .ok_or_else(|| {
+            AppError::AuthProvider(
+                "Configure a Google OAuth public client ID before signing in".into(),
+            )
+        })
 }
 
 fn generate_pkce() -> (String, String) {

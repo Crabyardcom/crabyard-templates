@@ -3,8 +3,8 @@
 # It is used by the crabyard CLI generator — do not delete it.
 
 [template]
-version = "1.7.0"
-crabyard_version = "1.7.0"
+version = "1.8.0"
+crabyard_version = "1.8.0"
 min_tauri = "2.0"
 min_rust = "1.90"
 min_bun = "1.1"
@@ -44,10 +44,6 @@ overlay = "ui/shadcn"
 [modules.ui.options.daisyui]
 label = "daisyUI"
 overlay = "ui/daisyui"
-
-[modules.ui.options.tesign]
-label = "tesign"
-overlay = "ui/tesign"
 
 [modules.ui.options.minimal]
 label = "minimal (bare Tailwind)"
